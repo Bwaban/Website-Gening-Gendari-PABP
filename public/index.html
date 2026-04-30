@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SeniLokal – Gending Gandari</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ============================================================
+     NAVBAR
+     ============================================================ -->
+<nav id="main-nav">
+  <!-- Logo -->
+  <div class="nav-logo" onclick="showPage('beranda')">
+    <div class="logo-icon">🎵</div>
+    <span>SeniLokal</span>
+  </div>
+
+  <!-- Desktop links -->
+  <div class="nav-links">
+    <a onclick="showPage('beranda')" id="link-beranda" class="active-link">Beranda</a>
+    <a onclick="showPage('tentang')" id="link-tentang">Tentang</a>
+    <a onclick="showPage('blog')"    id="link-blog">Blog</a>
+    <a onclick="showPage('kontak')"  id="link-kontak">Kontak</a>
+    <a onclick="showPage('admin')"   id="link-admin" class="admin-only" hidden>Admin</a>
+  </div>
+
+  <!-- Desktop buttons -->
+  <div class="nav-btns" id="guest-actions">
+    <button class="btn-masuk"  onclick="showPage('masuk')">Masuk</button>
+    <button class="btn-daftar" onclick="showPage('daftar')">Daftar</button>
+  </div>
+  <div class="nav-btns" id="user-actions" hidden>
+    <button class="btn-masuk" id="profile-label" type="button">Akun</button>
+    <button class="btn-daftar" onclick="logout()" type="button">Keluar</button>
+  </div>
+
+  <!-- Mobile hamburger -->
+  <button class="nav-toggle" onclick="toggleMenu()" aria-label="Buka menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+
+<!-- ============================================================
+     HALAMAN: BERANDA
+     ============================================================ -->
+<div class="page active" id="beranda">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-badge">🎶 Seni Tradisional Indonesia</div>
+      <h1>Temukan Pesona<br><em>Gending Gandari</em></h1>
+      <p>
+        Platform digital yang menghubungkan pecinta seni dengan pertunjukan
+        Gending Gandari dan seni karawitan terbaik di seluruh Indonesia.
+      </p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="document.querySelector('.listings').scrollIntoView({ behavior: 'smooth' })">Jelajahi Pertunjukan</button>
+        <button class="btn-outline-light" onclick="showPage('tentang')">Tentang Kami</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filter Bar -->
+  <div class="filter-bar">
+    <h3>Filter</h3>
+    <div class="filter-group">
+      <select class="filter-select" id="filter-kategori">
+        <option>Semua Kategori</option>
+        <option>Gending Gandari</option>
+        <option>Karawitan</option>
+        <option>Wayang</option>
+        <option>Tari Tradisional</option>
+      </select>
+      <select class="filter-select" id="filter-kota">
+        <option>Semua Kota</option>
+        <option>Bandung</option>
+        <option>Yogyakarta</option>
+        <option>Solo</option>
+        <option>Jakarta</option>
+      </select>
+      <select class="filter-select" id="filter-tanggal">
+        <option value="">Semua Tanggal</option>
+        <option value="bulan_ini">Bulan Ini</option>
+        <option value="bulan_depan">Bulan Depan</option>
+        <option value="3_bulan">3 Bulan ke Depan</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Event Listings -->
+  <section class="listings">
+    <h2>Semua Pertunjukan</h2>
+    <div class="status-message" id="events-message"></div>
+    <div class="cards-grid" id="events-grid">
+
+      <!-- Card 1 -->
+      <article class="event-card">
+        <div class="card-img" style="background: linear-gradient(135deg,#4A3218,#C8792A)">🎼</div>
+        <div class="card-body">
+          <div class="card-tag">Gending Gandari</div>
+          <h3 class="card-title">Pagelaran Gending Gandari Malam Bulan Purnama</h3>
+          <div class="card-meta">
+            <div class="card-meta-item">📅 Sabtu, 15 Juni 2025 • 19:00 WIB</div>
+            <div class="card-meta-item">📍 Gedung Kesenian Jawa Barat, Bandung</div>
+          </div>
+          <div class="card-footer">
+            <div>
+              <span class="avail-badge tersedia">Tersedia</span>
+              <div class="card-price">Rp 75.000</div>
+            </div>
+            <button class="btn-detail">Detail</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="event-card">
+        <div class="card-img" style="background: linear-gradient(135deg,#1C3A2A,#2A7A4A)">🪘</div>
+        <div class="card-body">
+          <div class="card-tag">Karawitan</div>
+          <h3 class="card-title">Festival Karawitan Nusantara – Gamelan Ageng</h3>
+          <div class="card-meta">
+            <div class="card-meta-item">📅 Minggu, 22 Juni 2025 • 10:00 WIB</div>
+            <div class="card-meta-item">📍 Taman Budaya Yogyakarta</div>
+          </div>
+          <div class="card-footer">
+            <div>
+              <span class="avail-badge terbatas">Terbatas</span>
+              <div class="card-price">Rp 50.000</div>
+            </div>
+            <button class="btn-detail">Detail</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="event-card">
+        <div class="card-img" style="background: linear-gradient(135deg,#2A1A3A,#6A2A8A)">🎭</div>
+        <div class="card-body">
+          <div class="card-tag">Gending Gandari</div>
+          <h3 class="card-title">Gending Gandari: Pusaka Sunda yang Abadi</h3>
+          <div class="card-meta">
+            <div class="card-meta-item">📅 Jumat, 4 Juli 2025 • 20:00 WIB</div>
+            <div class="card-meta-item">📍 Gedung Merdeka, Bandung</div>
+          </div>
+          <div class="card-footer">
+            <div>
+              <span class="avail-badge tersedia">Tersedia</span>
+              <div class="card-price">Rp 100.000</div>
+            </div>
+            <button class="btn-detail">Detail</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="event-card">
+        <div class="card-img" style="background: linear-gradient(135deg,#3A1A10,#8A3A1A)">🥁</div>
+        <div class="card-body">
+          <div class="card-tag">Wayang</div>
+          <h3 class="card-title">Wayang Golek – Lakon Ramayana dengan Gending Sunda</h3>
+          <div class="card-meta">
+            <div class="card-meta-item">📅 Sabtu, 12 Juli 2025 • 21:00 WIB</div>
+            <div class="card-meta-item">📍 Saung Angklung Udjo, Bandung</div>
+          </div>
+          <div class="card-footer">
+            <div>
+              <span class="avail-badge habis">Habis</span>
+              <div class="card-price">Rp 120.000</div>
+            </div>
+            <button class="btn-detail" disabled>Detail</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="event-card">
+        <div class="card-img" style="background: linear-gradient(135deg,#1A3A3A,#1A8A7A)">🎶</div>
+        <div class="card-body">
+          <div class="card-tag">Gending Gandari</div>
+          <h3 class="card-title">Malam Gending: Harmoni Gandari dan Degung</h3>
+          <div class="card-meta">
+            <div class="card-meta-item">📅 Kamis, 17 Juli 2025 • 18:30 WIB</div>
+            <div class="card-meta-item">📍 Galeri Seni Nasional, Jakarta</div>
+          </div>
+          <div class="card-footer">
+            <div>
+              <span class="avail-badge tersedia">Tersedia</span>
+              <div class="card-price">Rp 85.000</div>
+            </div>
+            <button class="btn-detail">Detail</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="event-card">
+        <div class="card-img" style="background: linear-gradient(135deg,#2A2A1A,#7A7A1A)">🎵</div>
+        <div class="card-body">
+          <div class="card-tag">Tari Tradisional</div>
+          <h3 class="card-title">Tari Merak dengan Iringan Gending Jawa Barat</h3>
+          <div class="card-meta">
+            <div class="card-meta-item">📅 Senin, 28 Juli 2025 • 19:30 WIB</div>
+            <div class="card-meta-item">📍 Pusat Kebudayaan Solo</div>
+          </div>
+          <div class="card-footer">
+            <div>
+              <span class="avail-badge terbatas">Terbatas</span>
+              <div class="card-price">Rp 60.000</div>
+            </div>
+            <button class="btn-detail">Detail</button>
+          </div>
+        </div>
+      </article>
+
+    </div><!-- /.cards-grid -->
+  </section>
+
+  <!-- Footer Beranda -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-icon">🎵</div>
+          <span>SeniLokal</span>
+        </div>
+        <p>Platform digital untuk melestarikan dan mempromosikan seni budaya Gending Gandari dan karawitan Indonesia.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigasi</h5>
+        <ul>
+          <li><a onclick="showPage('beranda')">Beranda</a></li>
+          <li><a onclick="showPage('tentang')">Tentang</a></li>
+          <li><a onclick="showPage('blog')">Blog</a></li>
+          <li><a onclick="showPage('kontak')">Kontak</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Kategori</h5>
+        <ul>
+          <li><a>Gending Gandari</a></li>
+          <li><a>Karawitan</a></li>
+          <li><a>Wayang</a></li>
+          <li><a>Tari Tradisional</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Kontak</h5>
+        <ul>
+          <li><a>Email@Email.com</a></li>
+          <li><a>+62 812 1234 5678</a></li>
+          <li><a>Jl. Kebanggan no 123, Jakarta</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2025 SeniLokal. Dibuat dengan ❤️ untuk pelestarian seni budaya Indonesia.</div>
+  </footer>
+
+</div><!-- /#beranda -->
+
+
+<!-- ============================================================
+     HALAMAN: TENTANG
+     ============================================================ -->
+<div class="page" id="tentang">
+
+  <!-- Hero -->
+  <section class="about-hero">
+    <h1>Tentang <em>SeniLokal</em></h1>
+    <p>Platform digital yang menghubungkan pecinta seni dengan pertunjukan seni lokal terbaik di seluruh Indonesia</p>
+  </section>
+
+  <!-- Misi -->
+  <section class="about-section">
+    <div class="about-2col">
+      <div>
+        <div class="section-label">Misi Kami</div>
+        <h2 class="section-title">Melestarikan Budaya, Mendukung Seniman Lokal</h2>
+        <p class="section-body">
+          Kami hadir untuk menjadi jembatan antara para seniman Gending Gandari dan pecinta seni budaya
+          di seluruh Indonesia. Dengan teknologi digital, kami mempermudah akses masyarakat terhadap
+          pertunjukan seni karawitan dan budaya tradisional yang kaya makna, memastikan warisan leluhur
+          terus hidup dan berkembang dari generasi ke generasi.
+        </p>
+      </div>
+      <div class="about-photo">🎼</div>
+    </div>
+  </section>
+
+  <!-- Visi -->
+  <section class="about-section alt">
+    <div class="about-2col reverse">
+      <div>
+        <div class="section-label">Visi Kami</div>
+        <h2 class="section-title">Menjadi Rumah Digital Seni Budaya Indonesia</h2>
+        <p class="section-body">
+          Kami bercita-cita menjadi platform terdepan dalam ekosistem seni pertunjukan tradisional
+          Indonesia — tempat di mana Gending Gandari, karawitan, dan ragam seni Nusantara lainnya
+          dirayakan, dipasarkan, dan diwariskan. Kami percaya bahwa teknologi dan tradisi bisa
+          berjalan berdampingan secara harmonis.
+        </p>
+      </div>
+      <div class="about-photo">🪘</div>
+    </div>
+  </section>
+
+  <!-- Nilai-Nilai -->
+  <section class="values-section">
+    <div class="section-label" style="text-align: center">Yang Kami Pegang</div>
+    <h2 class="section-title">Nilai-Nilai Kami</h2>
+    <p class="sub">Prinsip yang memandu setiap langkah kami</p>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">❤️</div>
+        <h3>Cinta Budaya</h3>
+        <p>Setiap keputusan kami dilandasi kecintaan mendalam terhadap seni dan budaya leluhur Indonesia.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🤝</div>
+        <h3>Kolaboratif</h3>
+        <p>Kami percaya pada kekuatan kolaborasi antara seniman, penonton, dan komunitas budaya.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">💡</div>
+        <h3>Inovatif</h3>
+        <p>Kami mengintegrasikan teknologi terkini untuk memperluas jangkauan seni tradisional.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🛡️</div>
+        <h3>Terpercaya</h3>
+        <p>Transparansi dan kejujuran adalah fondasi kepercayaan yang kami bangun bersama komunitas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cerita -->
+  <section class="about-section">
+    <div class="about-2col">
+      <div>
+        <div class="section-label">Perjalanan Kami</div>
+        <h2 class="section-title">Cerita di Balik SeniLokal</h2>
+        <p class="section-body" style="margin-bottom: 14px">
+          SeniLokal lahir dari kekhawatiran akan semakin terpinggirkannya seni tradisional Indonesia
+          di tengah arus modernisasi. Bermula dari komunitas kecil pecinta Gending Gandari di Bandung,
+          kami membangun platform yang memudahkan semua orang untuk menemukan dan menikmati pertunjukan
+          seni lokal.
+        </p>
+        <p class="section-body">
+          Kini, SeniLokal telah berkembang menjadi platform yang menaungi ratusan pertunjukan dari
+          berbagai daerah, menghubungkan ribuan penonton dengan seniman-seniman terbaik Indonesia.
+        </p>
+      </div>
+      <div class="about-photo">🎭</div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats-section">
+    <div class="section-label" style="text-align: center; color: rgba(200,169,60,0.8)">Pencapaian Kami</div>
+    <h2 class="section-title">Dampak Kami</h2>
+    <p class="sub">Angka-angka yang membanggakan</p>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Pertunjukan Terfasilitasi</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">50K+</div>
+        <div class="stat-label">Penonton Terlayani</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">200+</div>
+        <div class="stat-label">Seniman Bergabung</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">15+</div>
+        <div class="stat-label">Kota di Indonesia</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tim -->
+  <section class="team-section">
+    <div class="section-label" style="text-align: center">Keluarga Kami</div>
+    <h2 class="section-title">Tim Kami</h2>
+    <p class="sub">Orang-orang di balik SeniLokal</p>
+    <div class="team-grid">
+      <div class="team-card"><div class="team-avatar">👤</div><h4>Dwiki Muhammad</h4><p>Founder & CEO</p></div>
+      <div class="team-card"><div class="team-avatar">👤</div><h4>Maimunah Sari</h4><p>Head of Culture</p></div>
+      <div class="team-card"><div class="team-avatar">👤</div><h4>Rizki Pratama</h4><p>Lead Developer</p></div>
+      <div class="team-card"><div class="team-avatar">👤</div><h4>Siti Rahma</h4><p>Community Manager</p></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Bergabunglah Bersama Kami</h2>
+    <p>Mari bersama-sama melestarikan seni dan budaya Indonesia untuk generasi mendatang</p>
+    <div class="cta-btns">
+      <button class="btn-white"         onclick="showPage('beranda')">Jelajahi Pertunjukan</button>
+      <button class="btn-outline-white" onclick="showPage('kontak')">Hubungi Kami</button>
+    </div>
+  </section>
+
+  <!-- Footer Tentang -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo"><div class="logo-icon">🎵</div><span>SeniLokal</span></div>
+        <p>Platform digital untuk melestarikan seni budaya Gending Gandari dan karawitan Indonesia.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigasi</h5>
+        <ul>
+          <li><a onclick="showPage('beranda')">Beranda</a></li>
+          <li><a onclick="showPage('tentang')">Tentang</a></li>
+          <li><a onclick="showPage('blog')">Blog</a></li>
+          <li><a onclick="showPage('kontak')">Kontak</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Kategori</h5>
+        <ul>
+          <li><a>Gending Gandari</a></li>
+          <li><a>Karawitan</a></li>
+          <li><a>Wayang</a></li>
+          <li><a>Tari Tradisional</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Kontak</h5>
+        <ul>
+          <li><a>Email@Email.com</a></li>
+          <li><a>+62 812 1234 5678</a></li>
+          <li><a>Jl. Kebanggan no 123, Jakarta</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2025 SeniLokal. Dibuat dengan ❤️ untuk pelestarian seni budaya Indonesia.</div>
+  </footer>
+
+</div><!-- /#tentang -->
+
+
+<!-- ============================================================
+     HALAMAN: BLOG
+     ============================================================ -->
+<div class="page" id="blog">
+
+  <!-- Hero -->
+  <section class="blog-hero">
+    <div class="hero-badge">✍️ Artikel Terbaru</div>
+    <h1>Blog & Artikel<br><em>Cerita Seni & Budaya Indonesia</em></h1>
+    <p>Jelajahi artikel menarik tentang seni, budaya, dan pertunjukan tradisional Indonesia</p>
+  </section>
+
+  <!-- Blog Content -->
+  <div class="blog-content">
+    <!-- Search -->
+    <div class="search-bar">
+      <input type="text" placeholder="Cari artikel..." />
+      <button>Cari</button>
+    </div>
+
+    <!-- Layout: artikel + sidebar -->
+    <div class="blog-layout">
+
+      <!-- Artikel utama -->
+      <main class="blog-main">
+
+        <article class="blog-card">
+          <div class="blog-card-img">🎵</div>
+          <div class="blog-card-body">
+            <div class="blog-cat">Gending Gandari</div>
+            <h3>Mengenal Gending Gandari: Permata Karawitan Sunda yang Terancam Punah</h3>
+            <p>Gending Gandari merupakan salah satu komposisi karawitan Sunda yang kaya makna. Dalam artikel ini, kita akan menelusuri sejarah, struktur musik, dan upaya pelestariannya di era modern...</p>
+            <div class="blog-meta-row">
+              <span class="blog-author"><strong>Dwiki Muhammad</strong> · 15 Maret 2025 · 8 menit baca</span>
+              <button class="btn-baca">Baca →</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="blog-card">
+          <div class="blog-card-img" style="background: linear-gradient(135deg,#1C3A2A,#2A7A4A)">🪘</div>
+          <div class="blog-card-body">
+            <div class="blog-cat">Festival Seni & Budaya</div>
+            <h3>Festival Seni dan Budaya Nusantara 2025: Merayakan Keberagaman</h3>
+            <p>Festival Seni dan Budaya Nusantara 2025 akan menjadi perhelatan akbar yang menyatukan ratusan seniman dari seluruh pelosok Indonesia. Berikut panduan lengkap dan jadwal acaranya...</p>
+            <div class="blog-meta-row">
+              <span class="blog-author"><strong>Maimunah Sari</strong> · 2 April 2025 · 6 menit baca</span>
+              <button class="btn-baca">Baca →</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="blog-card">
+          <div class="blog-card-img" style="background: linear-gradient(135deg,#2A1A3A,#6A2A8A)">🎭</div>
+          <div class="blog-card-body">
+            <div class="blog-cat">Karawitan</div>
+            <h3>Instrumen Gamelan dalam Gending Gandari: Fungsi dan Peranannya</h3>
+            <p>Setiap instrumen dalam ensambel gamelan Gending Gandari memiliki peran unik. Dari kendang yang mengatur tempo hingga gender yang mengisi melodi, setiap elemen saling melengkapi...</p>
+            <div class="blog-meta-row">
+              <span class="blog-author"><strong>Rizki Pratama</strong> · 10 April 2025 · 10 menit baca</span>
+              <button class="btn-baca">Baca →</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="blog-card">
+          <div class="blog-card-img" style="background: linear-gradient(135deg,#3A1A10,#8A3A1A)">🥁</div>
+          <div class="blog-card-body">
+            <div class="blog-cat">Budaya Lokal</div>
+            <h3>Filosofi di Balik Gending Gandari: Makna Tersembunyi dalam Setiap Nada</h3>
+            <p>Gending Gandari bukan sekadar musik. Di balik setiap melodi dan ritmenya tersimpan nilai-nilai filosofi Sunda yang mendalam tentang keselarasan alam, manusia, dan Sang Pencipta...</p>
+            <div class="blog-meta-row">
+              <span class="blog-author"><strong>Siti Rahma</strong> · 18 April 2025 · 12 menit baca</span>
+              <button class="btn-baca">Baca →</button>
+            </div>
+          </div>
+        </article>
+
+      </main><!-- /.blog-main -->
+
+      <!-- Sidebar -->
+      <aside class="blog-sidebar">
+
+        <div class="sidebar-widget">
+          <h4>Kategori</h4>
+          <ul class="cat-list">
+            <li><span>Gending Gandari</span><span>12</span></li>
+            <li><span>Festival Budaya</span><span>8</span></li>
+            <li><span>Karawitan</span><span>15</span></li>
+            <li><span>Tari Tradisional</span><span>6</span></li>
+            <li><span>Wayang</span><span>9</span></li>
+            <li><span>Budaya Lokal</span><span>11</span></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-widget">
+          <h4>Artikel Populer</h4>
+          <ul class="cat-list popular">
+            <li>
+              <span class="article-title">Sejarah Gending Gandari di Tanah Sunda</span>
+              <span class="article-date">24 Maret 2025</span>
+            </li>
+            <li>
+              <span class="article-title">Cara Belajar Karawitan untuk Pemula</span>
+              <span class="article-date">5 April 2025</span>
+            </li>
+            <li>
+              <span class="article-title">10 Sanggar Seni Terbaik di Bandung</span>
+              <span class="article-date">12 April 2025</span>
+            </li>
+          </ul>
+        </div>
+
+      </aside><!-- /.blog-sidebar -->
+
+    </div><!-- /.blog-layout -->
+  </div><!-- /.blog-content -->
+
+  <!-- Footer Blog -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo"><div class="logo-icon">🎵</div><span>SeniLokal</span></div>
+        <p>Platform digital untuk melestarikan seni budaya Gending Gandari dan karawitan Indonesia.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigasi</h5>
+        <ul>
+          <li><a onclick="showPage('beranda')">Beranda</a></li>
+          <li><a onclick="showPage('tentang')">Tentang</a></li>
+          <li><a onclick="showPage('blog')">Blog</a></li>
+          <li><a onclick="showPage('kontak')">Kontak</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Kategori</h5>
+        <ul>
+          <li><a>Gending Gandari</a></li>
+          <li><a>Karawitan</a></li>
+          <li><a>Wayang</a></li>
+          <li><a>Tari Tradisional</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Kontak</h5>
+        <ul>
+          <li><a>Email@Email.com</a></li>
+          <li><a>+62 812 1234 5678</a></li>
+          <li><a>Jl. Kebanggan no 123, Jakarta</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2025 SeniLokal. Dibuat dengan ❤️ untuk pelestarian seni budaya Indonesia.</div>
+  </footer>
+
+</div><!-- /#blog -->
+
+
+<!-- ============================================================
+     HALAMAN: KONTAK
+     ============================================================ -->
+<div class="page" id="kontak">
+
+  <!-- Hero -->
+  <section class="kontak-hero">
+    <div class="badge">⭐ Hubungi Kami</div>
+    <h1>Ada Pertanyaan?<br>Kami Siap Membantu</h1>
+    <p>Tim kami siap menjawab pertanyaan dan membantu Anda dalam setiap langkah</p>
+  </section>
+
+  <!-- Kartu kontak -->
+  <section class="kontak-cards">
+    <div class="kontak-cards-grid">
+      <div class="kontak-card">
+        <div class="kontak-icon">📧</div>
+        <h4>Email</h4>
+        <p>Email@Email.com</p>
+      </div>
+      <div class="kontak-card">
+        <div class="kontak-icon">📞</div>
+        <h4>Telepon</h4>
+        <p>+62 812 1234 5678</p>
+      </div>
+      <div class="kontak-card">
+        <div class="kontak-icon">📍</div>
+        <h4>Alamat</h4>
+        <p>Jl. Kebanggan no 123, Jakarta 12345</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Form + Info -->
+  <section class="kontak-main">
+    <div class="kontak-main-grid">
+
+      <!-- Form kirim pesan -->
+      <div class="form-card">
+        <h3>Kirim Pesan</h3>
+        <div class="form-body">
+          <div class="form-group">
+            <label for="nama">Nama Lengkap</label>
+            <input type="text" id="nama" placeholder="Nama Lengkap Anda" />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="email@contoh.com" />
+          </div>
+          <div class="form-group">
+            <label for="subjek">Subjek</label>
+            <input type="text" id="subjek" placeholder="Subjek pesan" />
+          </div>
+          <div class="form-group">
+            <label for="pesan">Pesan</label>
+            <textarea id="pesan" placeholder="Tulis pesan Anda di sini..."></textarea>
+          </div>
+          <div class="status-message" id="kontak-message"></div>
+          <button class="btn-submit" id="kontak-submit" type="button">Kirim Pesan</button>
+        </div>
+      </div>
+
+      <!-- Info operasional -->
+      <div class="info-card">
+        <h3>Jam Operasional</h3>
+        <div class="jam-ops">
+          <div class="jam-row">
+            <span>Senin – Jumat</span>
+            <span>09:00 – 17:00 WIB</span>
+          </div>
+          <div class="jam-row">
+            <span>Sabtu</span>
+            <span>09:00 – 15:00 WIB</span>
+          </div>
+          <div class="jam-row tutup">
+            <span>Minggu &amp; Libur</span>
+            <span>Tutup</span>
+          </div>
+        </div>
+
+        <h3>Lokasi Kantor Kami</h3>
+        <div class="lokasi-map">
+          🗺️<br><br>
+          Jl. Kebanggan no 123<br>
+          Jakarta 12345, Indonesia
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="section-label" style="text-align: center">FAQ</div>
+    <h2 class="section-title">Pertanyaan Umum</h2>
+    <p class="sub">Temukan jawaban dari pertanyaan yang sering ditanyakan</p>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Apa itu Gending Gandari?</span>
+          <span class="arrow">›</span>
+        </div>
+        <div class="faq-a">
+          Gending Gandari adalah salah satu komposisi karawitan Sunda yang terkenal dan memiliki
+          nilai historis serta estetis tinggi dalam tradisi musik gamelan Sunda.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Bagaimana cara membeli tiket pertunjukan?</span>
+          <span class="arrow">›</span>
+        </div>
+        <div class="faq-a">
+          Pilih pertunjukan di halaman Beranda, klik tombol "Detail" dan ikuti langkah pembelian.
+          Pembayaran dapat dilakukan via transfer bank atau dompet digital.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Apakah bisa mendaftarkan pertunjukan seni saya?</span>
+          <span class="arrow">›</span>
+        </div>
+        <div class="faq-a">
+          Ya! Kami membuka pendaftaran untuk seniman dan penyelenggara acara seni. Hubungi kami
+          melalui form di atas atau email langsung untuk informasi lebih lanjut.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Apakah tiket bisa di-refund jika acara dibatalkan?</span>
+          <span class="arrow">›</span>
+        </div>
+        <div class="faq-a">
+          Ya, jika acara dibatalkan oleh penyelenggara, tiket akan di-refund penuh dalam 7 hari
+          kerja ke metode pembayaran asal.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer Kontak -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo"><div class="logo-icon">🎵</div><span>SeniLokal</span></div>
+        <p>Platform digital untuk melestarikan seni budaya Gending Gandari dan karawitan Indonesia.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigasi</h5>
+        <ul>
+          <li><a onclick="showPage('beranda')">Beranda</a></li>
+          <li><a onclick="showPage('tentang')">Tentang</a></li>
+          <li><a onclick="showPage('blog')">Blog</a></li>
+          <li><a onclick="showPage('kontak')">Kontak</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Kategori</h5>
+        <ul>
+          <li><a>Gending Gandari</a></li>
+          <li><a>Karawitan</a></li>
+          <li><a>Wayang</a></li>
+          <li><a>Tari Tradisional</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Kontak</h5>
+        <ul>
+          <li><a>Email@Email.com</a></li>
+          <li><a>+62 812 1234 5678</a></li>
+          <li><a>Jl. Kebanggan no 123, Jakarta</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2025 SeniLokal. Dibuat dengan ❤️ untuk pelestarian seni budaya Indonesia.</div>
+  </footer>
+
+</div><!-- /#kontak -->
+
+
+<!-- ============================================================
+     HALAMAN: MASUK
+     ============================================================ -->
+<div class="page" id="masuk">
+  <div class="auth-page">
+
+    <!-- Panel kiri -->
+    <div class="auth-left">
+      <div class="auth-left-logo">
+        <div class="logo-icon">🎵</div>
+        <span>SeniLokal</span>
+      </div>
+      <h2>Selamat Datang<br>di Dunia <em>Gending Gandari</em></h2>
+      <p>
+        Masuk ke akun Anda untuk mulai menjelajahi pertunjukan seni budaya terbaik Indonesia
+        dan mendapatkan tiket eksklusif.
+      </p>
+    </div>
+
+    <!-- Panel kanan (form) -->
+    <div class="auth-right">
+      <div class="auth-form-box">
+        <h3>Masuk</h3>
+        <p class="subtitle">Selamat datang kembali</p>
+        <div class="auth-form">
+          <div class="form-group">
+            <label for="masuk-username">Username</label>
+            <input type="text" id="masuk-username" placeholder="Username Anda" />
+          </div>
+          <div class="form-group">
+            <label for="masuk-password">Password</label>
+            <input type="password" id="masuk-password" placeholder="••••••••" />
+          </div>
+          <div class="status-message" id="login-message"></div>
+          <button class="btn-submit" id="login-submit" type="button">Masuk</button>
+          <div class="or-divider">Atau</div>
+          <div class="auth-switch">
+            Belum punya akun? <a onclick="showPage('daftar')">Daftar Sekarang</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /#masuk -->
+
+
+<!-- ============================================================
+     HALAMAN: DAFTAR
+     ============================================================ -->
+<div class="page" id="daftar">
+  <div class="auth-page">
+
+    <!-- Panel kiri (warna berbeda untuk halaman daftar) -->
+    <div class="auth-left" style="background: linear-gradient(160deg,#2A0A5A,#5A1A9A)">
+      <div class="auth-left-logo">
+        <div class="logo-icon">🎵</div>
+        <span>SeniLokal</span>
+      </div>
+      <h2>Bergabunglah Bersama<br><em>Komunitas Seni</em></h2>
+      <p>
+        Daftarkan diri Anda dan jadilah bagian dari ribuan pecinta seni Gending Gandari yang
+        melestarikan warisan budaya Nusantara.
+      </p>
+    </div>
+
+    <!-- Panel kanan (form) -->
+    <div class="auth-right">
+      <div class="auth-form-box">
+        <h3>Daftar</h3>
+        <p class="subtitle">Bergabunglah Dengan Kami</p>
+        <div class="auth-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="daftar-nama">Nama Lengkap</label>
+              <input type="text" id="daftar-nama" placeholder="Nama Lengkap" />
+            </div>
+            <div class="form-group">
+              <label for="daftar-umur">Umur</label>
+              <input type="number" id="daftar-umur" placeholder="Umur" min="1" max="120" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="daftar-kota">Asal Kota</label>
+            <input type="text" id="daftar-kota" placeholder="Kota Anda" />
+          </div>
+          <div class="form-group">
+            <label for="daftar-username">Username</label>
+            <input type="text" id="daftar-username" placeholder="Username unik Anda" />
+          </div>
+          <div class="form-group">
+            <label for="daftar-email">Email</label>
+            <input type="email" id="daftar-email" placeholder="email@contoh.com" />
+          </div>
+          <div class="form-group">
+            <label for="daftar-password">Password</label>
+            <input type="password" id="daftar-password" placeholder="••••••••" />
+          </div>
+          <div class="form-group">
+            <label for="daftar-telp">Nomor Telepon</label>
+            <input type="tel" id="daftar-telp" placeholder="+62 8xx xxxx xxxx" />
+          </div>
+          <div class="status-message" id="register-message"></div>
+          <button class="btn-submit" id="register-submit" type="button">Daftar</button>
+          <div class="or-divider">Atau</div>
+          <div class="auth-switch">
+            Sudah punya akun? <a onclick="showPage('masuk')">Masuk Sekarang</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /#daftar -->
+
+<!-- ============================================================
+     HALAMAN: ADMIN PRODUK
+     ============================================================ -->
+<div class="page" id="admin">
+  <section class="admin-page">
+    <div class="admin-header">
+      <div>
+        <div class="section-label">Admin</div>
+        <h1>Kelola Produk Pertunjukan</h1>
+        <p>Tambah, ubah, dan hapus data pertunjukan langsung dari database.</p>
+      </div>
+      <button class="btn-daftar" id="admin-new-btn" type="button">Produk Baru</button>
+    </div>
+
+    <div class="admin-layout">
+      <form class="admin-form" id="product-form">
+        <input type="hidden" id="product-id" />
+        <h3 id="product-form-title">Tambah Produk</h3>
+        <div class="status-message" id="product-message"></div>
+
+        <div class="form-group">
+          <label for="product-judul">Judul</label>
+          <input type="text" id="product-judul" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="product-kategori">Kategori</label>
+            <select id="product-kategori" class="filter-select">
+              <option>Gending Gandari</option>
+              <option>Karawitan</option>
+              <option>Wayang</option>
+              <option>Tari Tradisional</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="product-status">Status</label>
+            <select id="product-status" class="filter-select">
+              <option value="tersedia">Tersedia</option>
+              <option value="terbatas">Terbatas</option>
+              <option value="habis">Habis</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="product-deskripsi">Deskripsi</label>
+          <textarea id="product-deskripsi"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="product-tanggal">Tanggal</label>
+            <input type="datetime-local" id="product-tanggal" required />
+          </div>
+          <div class="form-group">
+            <label for="product-kota">Kota</label>
+            <input type="text" id="product-kota" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="product-lokasi">Lokasi</label>
+          <input type="text" id="product-lokasi" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="product-harga">Harga</label>
+            <input type="number" id="product-harga" min="0" required />
+          </div>
+          <div class="form-group">
+            <label for="product-kuota">Kuota</label>
+            <input type="number" id="product-kuota" min="1" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="product-emoji">Ikon</label>
+            <input type="text" id="product-emoji" placeholder="🎵" />
+          </div>
+          <div class="form-group">
+            <label for="product-gradient">Gradient CSS</label>
+            <input type="text" id="product-gradient" placeholder="linear-gradient(135deg,#4A3218,#C8792A)" />
+          </div>
+        </div>
+        <div class="admin-actions">
+          <button class="btn-submit" type="submit">Simpan Produk</button>
+          <button class="btn-masuk" id="product-cancel" type="button">Batal</button>
+        </div>
+      </form>
+
+      <div class="admin-table-wrap">
+        <div class="status-message" id="admin-message"></div>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Judul</th>
+              <th>Kategori</th>
+              <th>Kota</th>
+              <th>Harga</th>
+              <th>Status</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="admin-products-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div><!-- /#admin -->
+
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script src="config.js"></script>
+<script>
+  /**
+   * Pindah halaman.
+   * @param {string} id – id elemen .page yang ingin ditampilkan
+   */
+  function showPage(id) {
+    // Sembunyikan semua halaman
+    document.querySelectorAll('.page').forEach(function(p) {
+      p.classList.remove('active');
+    });
+
+    // Tampilkan halaman yang diminta
+    var target = document.getElementById(id);
+    if (target) target.classList.add('active');
+
+    // Scroll ke atas
+    window.scrollTo(0, 0);
+
+    // Update active-link pada navbar
+    document.querySelectorAll('.nav-links a').forEach(function(a) {
+      a.classList.remove('active-link');
+    });
+    var link = document.getElementById('link-' + id);
+    if (link) link.classList.add('active-link');
+
+    // Tutup menu mobile jika terbuka
+    document.getElementById('main-nav').classList.remove('menu-open');
+
+    if (id === 'beranda') loadEvents();
+    if (id === 'admin') loadAdminProducts();
+  }
+
+  /**
+   * Toggle menu hamburger (mobile).
+   */
+  function toggleMenu() {
+    document.getElementById('main-nav').classList.toggle('menu-open');
+  }
+
+  /**
+   * Toggle item FAQ.
+   * @param {HTMLElement} el – elemen .faq-q yang diklik
+   */
+  function toggleFaq(el) {
+    el.parentElement.classList.toggle('open');
+  }
+
+  // Tutup menu mobile jika user klik di luar navbar
+  document.addEventListener('click', function(e) {
+    var nav = document.getElementById('main-nav');
+    if (nav.classList.contains('menu-open') && !nav.contains(e.target)) {
+      nav.classList.remove('menu-open');
+    }
+  });
+
+  var API_BASE_URL = (window.SENILOKAL_CONFIG && window.SENILOKAL_CONFIG.API_BASE_URL) || '/api';
+  var currentUser = JSON.parse(localStorage.getItem('senilokal_user') || 'null');
+  var authToken = localStorage.getItem('senilokal_token') || '';
+  var eventsCache = [];
+
+  function apiUrl(path) {
+    return API_BASE_URL.replace(/\/$/, '') + path;
+  }
+
+  function getErrorMessage(data, fallback) {
+    if (data && data.message) return data.message;
+    if (data && data.errors && data.errors.length) return data.errors[0].msg;
+    return fallback || 'Terjadi kesalahan. Silakan coba lagi.';
+  }
+
+  async function apiRequest(path, options) {
+    var opts = options || {};
+    opts.headers = Object.assign({ 'Content-Type': 'application/json' }, opts.headers || {});
+    if (authToken) opts.headers.Authorization = 'Bearer ' + authToken;
+
+    var response = await fetch(apiUrl(path), opts);
+    var data = await response.json().catch(function() { return {}; });
+    if (!response.ok || data.success === false) {
+      throw new Error(getErrorMessage(data));
+    }
+    return data;
+  }
+
+  function setMessage(id, message, type) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = message || '';
+    el.className = 'status-message ' + (type || '');
+  }
+
+  function updateAuthUi() {
+    currentUser = JSON.parse(localStorage.getItem('senilokal_user') || 'null');
+    authToken = localStorage.getItem('senilokal_token') || '';
+
+    var guestActions = document.getElementById('guest-actions');
+    var userActions = document.getElementById('user-actions');
+    var adminLink = document.getElementById('link-admin');
+    var profileLabel = document.getElementById('profile-label');
+
+    if (currentUser) {
+      guestActions.hidden = true;
+      userActions.hidden = false;
+      profileLabel.textContent = currentUser.nama || currentUser.username || 'Akun';
+      adminLink.hidden = currentUser.role !== 'admin';
+    } else {
+      guestActions.hidden = false;
+      userActions.hidden = true;
+      adminLink.hidden = true;
+    }
+  }
+
+  function logout() {
+    localStorage.removeItem('senilokal_token');
+    localStorage.removeItem('senilokal_user');
+    updateAuthUi();
+    showPage('beranda');
+  }
+
+  function formatRupiah(value) {
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      maximumFractionDigits: 0,
+    }).format(Number(value || 0));
+  }
+
+  function formatTanggal(value) {
+    return new Intl.DateTimeFormat('id-ID', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    }).format(new Date(value));
+  }
+
+  function renderEvents(events) {
+    var grid = document.getElementById('events-grid');
+    if (!grid) return;
+
+    if (!events.length) {
+      grid.innerHTML = '<p class="empty-state">Belum ada pertunjukan yang sesuai.</p>';
+      return;
+    }
+
+    grid.innerHTML = events.map(function(event) {
+      var status = event.status || 'tersedia';
+      var disabled = status === 'habis' ? 'disabled' : '';
+      var gradient = event.gradient_style || 'linear-gradient(135deg,#4A3218,#C8792A)';
+      var icon = event.emoji || '🎵';
+      return `
+        <article class="event-card">
+          <div class="card-img" style="background: ${gradient}">${icon}</div>
+          <div class="card-body">
+            <div class="card-tag">${event.kategori || '-'}</div>
+            <h3 class="card-title">${event.judul || '-'}</h3>
+            <div class="card-meta">
+              <div class="card-meta-item">📅 ${formatTanggal(event.tanggal)} WIB</div>
+              <div class="card-meta-item">📍 ${event.lokasi || event.kota || '-'}</div>
+            </div>
+            <div class="card-footer">
+              <div>
+                <span class="avail-badge ${status}">${status.charAt(0).toUpperCase() + status.slice(1)}</span>
+                <div class="card-price">${formatRupiah(event.harga)}</div>
+              </div>
+              <button class="btn-detail" ${disabled}>Detail</button>
+            </div>
+          </div>
+        </article>
+      `;
+    }).join('');
+  }
+
+  async function loadEvents() {
+    setMessage('events-message', 'Memuat pertunjukan...', '');
+    var params = new URLSearchParams();
+    var kategori = document.getElementById('filter-kategori')?.value;
+    var kota = document.getElementById('filter-kota')?.value;
+    var tanggal = document.getElementById('filter-tanggal')?.value;
+    if (kategori) params.set('kategori', kategori);
+    if (kota) params.set('kota', kota);
+    if (tanggal) params.set('tanggal', tanggal);
+
+    try {
+      var data = await apiRequest('/events?' + params.toString());
+      eventsCache = data.events || [];
+      renderEvents(eventsCache);
+      setMessage('events-message', '', '');
+      renderAdminProducts(eventsCache);
+    } catch (err) {
+      setMessage('events-message', 'Gagal mengambil data pertunjukan: ' + err.message, 'error');
+    }
+  }
+
+  async function handleLogin() {
+    setMessage('login-message', 'Memproses login...', '');
+    try {
+      var data = await apiRequest('/auth/masuk', {
+        method: 'POST',
+        body: JSON.stringify({
+          username: document.getElementById('masuk-username').value.trim(),
+          password: document.getElementById('masuk-password').value,
+        }),
+      });
+      localStorage.setItem('senilokal_token', data.token);
+      localStorage.setItem('senilokal_user', JSON.stringify(data.user));
+      updateAuthUi();
+      setMessage('login-message', data.message || 'Login berhasil.', 'success');
+      showPage(data.user.role === 'admin' ? 'admin' : 'beranda');
+    } catch (err) {
+      setMessage('login-message', 'Gagal login: ' + err.message, 'error');
+    }
+  }
+
+  async function handleRegister() {
+    setMessage('register-message', 'Memproses pendaftaran...', '');
+    try {
+      var umur = document.getElementById('daftar-umur').value;
+      var data = await apiRequest('/auth/daftar', {
+        method: 'POST',
+        body: JSON.stringify({
+          nama: document.getElementById('daftar-nama').value.trim(),
+          username: document.getElementById('daftar-username').value.trim(),
+          email: document.getElementById('daftar-email').value.trim(),
+          password: document.getElementById('daftar-password').value,
+          telepon: document.getElementById('daftar-telp').value.trim(),
+          kota: document.getElementById('daftar-kota').value.trim(),
+          umur: umur ? Number(umur) : undefined,
+        }),
+      });
+      localStorage.setItem('senilokal_token', data.token);
+      localStorage.setItem('senilokal_user', JSON.stringify(data.user));
+      updateAuthUi();
+      setMessage('register-message', data.message || 'Pendaftaran berhasil.', 'success');
+      showPage('beranda');
+    } catch (err) {
+      setMessage('register-message', 'Gagal daftar: ' + err.message, 'error');
+    }
+  }
+
+  async function handleContact() {
+    setMessage('kontak-message', 'Mengirim pesan...', '');
+    try {
+      var data = await apiRequest('/kontak', {
+        method: 'POST',
+        body: JSON.stringify({
+          nama: document.getElementById('nama').value.trim(),
+          email: document.getElementById('email').value.trim(),
+          subjek: document.getElementById('subjek').value.trim(),
+          pesan: document.getElementById('pesan').value.trim(),
+        }),
+      });
+      ['nama', 'email', 'subjek', 'pesan'].forEach(function(id) {
+        document.getElementById(id).value = '';
+      });
+      setMessage('kontak-message', data.message || 'Pesan berhasil dikirim.', 'success');
+    } catch (err) {
+      setMessage('kontak-message', 'Gagal mengirim pesan: ' + err.message, 'error');
+    }
+  }
+
+  function toDatetimeLocal(value) {
+    if (!value) return '';
+    var date = new Date(value);
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+    return date.toISOString().slice(0, 16);
+  }
+
+  function resetProductForm() {
+    document.getElementById('product-form').reset();
+    document.getElementById('product-id').value = '';
+    document.getElementById('product-form-title').textContent = 'Tambah Produk';
+    setMessage('product-message', '', '');
+  }
+
+  function fillProductForm(eventId) {
+    var event = eventsCache.find(function(item) { return String(item.id) === String(eventId); });
+    if (!event) return;
+
+    document.getElementById('product-id').value = event.id;
+    document.getElementById('product-judul').value = event.judul || '';
+    document.getElementById('product-kategori').value = event.kategori || 'Gending Gandari';
+    document.getElementById('product-status').value = event.status || 'tersedia';
+    document.getElementById('product-deskripsi').value = event.deskripsi || '';
+    document.getElementById('product-tanggal').value = toDatetimeLocal(event.tanggal);
+    document.getElementById('product-kota').value = event.kota || '';
+    document.getElementById('product-lokasi').value = event.lokasi || '';
+    document.getElementById('product-harga').value = event.harga || 0;
+    document.getElementById('product-kuota').value = event.kuota || 1;
+    document.getElementById('product-emoji').value = event.emoji || '';
+    document.getElementById('product-gradient').value = event.gradient_style || '';
+    document.getElementById('product-form-title').textContent = 'Edit Produk';
+    setMessage('product-message', '', '');
+  }
+
+  function getProductPayload() {
+    return {
+      judul: document.getElementById('product-judul').value.trim(),
+      kategori: document.getElementById('product-kategori').value,
+      deskripsi: document.getElementById('product-deskripsi').value.trim(),
+      tanggal: document.getElementById('product-tanggal').value,
+      kota: document.getElementById('product-kota').value.trim(),
+      lokasi: document.getElementById('product-lokasi').value.trim(),
+      harga: Number(document.getElementById('product-harga').value || 0),
+      kuota: Number(document.getElementById('product-kuota').value || 1),
+      status: document.getElementById('product-status').value,
+      emoji: document.getElementById('product-emoji').value.trim(),
+      gradient_style: document.getElementById('product-gradient').value.trim(),
+    };
+  }
+
+  async function saveProduct(e) {
+    e.preventDefault();
+    var id = document.getElementById('product-id').value;
+    setMessage('product-message', 'Menyimpan produk...', '');
+    try {
+      var data = await apiRequest(id ? '/events/' + id : '/events', {
+        method: id ? 'PUT' : 'POST',
+        body: JSON.stringify(getProductPayload()),
+      });
+      setMessage('product-message', data.message || 'Produk berhasil disimpan.', 'success');
+      resetProductForm();
+      await loadEvents();
+    } catch (err) {
+      setMessage('product-message', 'Gagal menyimpan produk: ' + err.message, 'error');
+    }
+  }
+
+  async function deleteProduct(eventId) {
+    if (!confirm('Hapus produk pertunjukan ini?')) return;
+    setMessage('admin-message', 'Menghapus produk...', '');
+    try {
+      var data = await apiRequest('/events/' + eventId, { method: 'DELETE' });
+      setMessage('admin-message', data.message || 'Produk berhasil dihapus.', 'success');
+      await loadEvents();
+    } catch (err) {
+      setMessage('admin-message', 'Gagal menghapus produk: ' + err.message, 'error');
+    }
+  }
+
+  function renderAdminProducts(events) {
+    var tbody = document.getElementById('admin-products-body');
+    if (!tbody) return;
+
+    tbody.innerHTML = (events || []).map(function(event) {
+      return `
+        <tr>
+          <td>${event.judul || '-'}</td>
+          <td>${event.kategori || '-'}</td>
+          <td>${event.kota || '-'}</td>
+          <td>${formatRupiah(event.harga)}</td>
+          <td>${event.status || '-'}</td>
+          <td class="table-actions">
+            <button type="button" onclick="fillProductForm(${event.id})">Edit</button>
+            <button type="button" class="danger" onclick="deleteProduct(${event.id})">Hapus</button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  function loadAdminProducts() {
+    if (!currentUser || currentUser.role !== 'admin') {
+      setMessage('admin-message', 'Silakan login sebagai admin untuk mengelola produk.', 'error');
+      showPage('masuk');
+      return;
+    }
+    return loadEvents();
+  }
+
+  document.getElementById('login-submit').addEventListener('click', handleLogin);
+  document.getElementById('register-submit').addEventListener('click', handleRegister);
+  document.getElementById('kontak-submit').addEventListener('click', handleContact);
+  document.getElementById('product-form').addEventListener('submit', saveProduct);
+  document.getElementById('product-cancel').addEventListener('click', resetProductForm);
+  document.getElementById('admin-new-btn').addEventListener('click', resetProductForm);
+  ['filter-kategori', 'filter-kota', 'filter-tanggal'].forEach(function(id) {
+    document.getElementById(id).addEventListener('change', loadEvents);
+  });
+
+  updateAuthUi();
+  loadEvents();
+</script>
+
+</body>
+</html>
