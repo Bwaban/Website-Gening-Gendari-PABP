@@ -98,3 +98,15 @@ export interface EventFormData {
   gradient_style: string
   emoji: string
 }
+
+export interface BlogArticle {
+  id: string
+  judul: string
+  kategori: 'Budaya' | 'Edukasi' | 'Tips'
+  tanggal: string
+  author: string
+  excerpt: string
+  content: string
+  image: string
+  readTime: number
+}
