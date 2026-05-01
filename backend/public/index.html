@@ -63,11 +63,11 @@
   <!-- Hero -->
   <section class="hero">
     <div class="hero-text">
-      <div class="hero-badge">Seni Tradisional Indonesia</div>
-      <h1>Temukan Pertunjukan<br><em>Seni Lokal</em></h1>
+      <div class="hero-badge">🎶 Seni Tradisional Indonesia</div>
+      <h1>Temukan Pesona<br><em>Gending Gandari</em></h1>
       <p>
-        Pilih kategori, kota, dan jadwal untuk menemukan pertunjukan Gending
-        Gandari serta seni budaya lokal terdekat.
+        Platform digital yang menghubungkan pecinta seni dengan pertunjukan
+        Gending Gandari dan seni karawitan terbaik di seluruh Indonesia.
       </p>
       <div class="hero-btns">
         <button class="btn-primary" onclick="document.querySelector('.listings').scrollIntoView({ behavior: 'smooth' })">Jelajahi Pertunjukan</button>
@@ -282,28 +282,8 @@
 
   <!-- Hero -->
   <section class="about-hero">
-    <div class="about-badge">Tentang SeniLokal</div>
-    <h1>Melestarikan Budaya,<br>Mendukung Seniman Lokal</h1>
+    <h1>Tentang <em>SeniLokal</em></h1>
     <p>Platform digital yang menghubungkan pecinta seni dengan pertunjukan seni lokal terbaik di seluruh Indonesia</p>
-  </section>
-
-  <section class="mission-vision">
-    <article class="mv-card">
-      <div class="mv-icon magenta"></div>
-      <h3>Misi Kami</h3>
-      <p>
-        Kami hadir sebagai jembatan antara seniman lokal dan pecinta budaya. SeniLokal membantu
-        pertunjukan tradisional lebih mudah ditemukan, dipromosikan, dan dinikmati oleh masyarakat luas.
-      </p>
-    </article>
-    <article class="mv-card">
-      <div class="mv-icon purple"></div>
-      <h3>Visi Kami</h3>
-      <p>
-        Menjadi rumah digital seni budaya Indonesia, tempat karya lokal dirayakan dan diwariskan
-        dengan cara yang relevan bagi generasi masa kini.
-      </p>
-    </article>
   </section>
 
   <!-- Misi -->
@@ -1430,12 +1410,7 @@
   });
 
   updateAuthUi();
-  var initialPage = window.location.hash ? window.location.hash.slice(1) : 'beranda';
-  if (document.getElementById(initialPage)) {
-    showPage(initialPage);
-  } else {
-    loadEvents();
-  }
+  loadEvents();
 </script>
 
 </body>
