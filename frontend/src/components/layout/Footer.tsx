@@ -1,0 +1,79 @@
+import { Link } from 'react-router-dom'
+
+const categories = ['Gending Gandari', 'Karawitan', 'Wayang', 'Tari Tradisional']
+
+export default function Footer() {
+  return (
+    <footer className="border-t border-dark/10 bg-dark text-cream">
+      <div className="container-page grid gap-10 py-14 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
+        <div className="space-y-4">
+          <div className="flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-saffron to-gold text-xl">
+              🎼
+            </div>
+            <div>
+              <div className="font-display text-xl font-bold text-white">SeniLokal</div>
+              <div className="text-xs uppercase tracking-[0.28em] text-cream/50">Tixly</div>
+            </div>
+          </div>
+          <p className="max-w-md font-body leading-7 text-cream/70">
+            Platform ticketing pertunjukan seni budaya lokal Indonesia untuk
+            menemukan, memesan, dan merayakan kekayaan tradisi Nusantara.
+          </p>
+        </div>
+
+        <div>
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-white/80">
+            Navigasi
+          </h3>
+          <div className="space-y-3 text-sm text-cream/70">
+            <Link className="block transition hover:text-saffron" to="/">
+              Beranda
+            </Link>
+            <Link className="block transition hover:text-saffron" to="/events">
+              Event
+            </Link>
+            <Link className="block transition hover:text-saffron" to="/blog">
+              Blog
+            </Link>
+            <Link className="block transition hover:text-saffron" to="/kontak">
+              Kontak
+            </Link>
+          </div>
+        </div>
+
+        <div>
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-white/80">
+            Kategori
+          </h3>
+          <div className="space-y-3 text-sm text-cream/70">
+            {categories.map((category) => (
+              <Link
+                key={category}
+                className="block transition hover:text-saffron"
+                to={`/events?kategori=${encodeURIComponent(category)}`}
+              >
+                {category}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-white/80">
+            Kontak
+          </h3>
+          <div className="space-y-3 text-sm text-cream/70">
+            <p>info@senilokal.id</p>
+            <p>+62 811-XXXX-XXXX</p>
+            <p>Bandung, Jawa Barat, Indonesia</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="border-t border-white/10 py-5 text-center text-sm text-cream/50">
+        © {new Date().getFullYear()} SeniLokal. Dibangun untuk pelestarian seni budaya Indonesia.
+      </div>
+    </footer>
+  )
+}

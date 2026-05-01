@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-cream font-sans text-dark antialiased;
+  }
+
+  * {
+    scrollbar-color: #c8792a rgba(26, 18, 8, 0.08);
+  }
+
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: #c8792a;
+    border-radius: 999px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: rgba(26, 18, 8, 0.08);
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-title {
+    @apply font-display text-3xl font-bold tracking-tight text-dark sm:text-4xl;
+  }
+
+  .section-copy {
+    @apply max-w-2xl font-body text-base leading-8 text-dark/75;
+  }
+
+  .glass-panel {
+    @apply rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm;
+  }
+}
+
+.hero-pattern {
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(212, 168, 67, 0.18), transparent 30%),
+    radial-gradient(circle at 80% 0%, rgba(200, 121, 42, 0.16), transparent 28%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%);
+  background-size: auto, auto, 42px 42px, 42px 42px;
+  background-position: center, center, 0 0, 21px 21px;
+}
+
+.ticket-cutout::before,
+.ticket-cutout::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  height: 2.25rem;
+  width: 2.25rem;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: #fdf6e3;
+}
+
+.ticket-cutout::before {
+  left: -1.125rem;
+}
+
+.ticket-cutout::after {
+  right: -1.125rem;
+}
+
+.print-only {
+  display: none;
+}
+
+@media print {
+  body {
+    background: white !important;
+  }
+
+  nav,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block;
+  }
+}
