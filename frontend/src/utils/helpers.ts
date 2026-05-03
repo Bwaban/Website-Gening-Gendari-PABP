@@ -1,5 +1,34 @@
 import type { Tiket } from '../types'
 
+const EVENT_THEME_MAP: Record<
+  string,
+  {
+    gradient: string
+    emoji: string
+  }
+> = {
+  'Gending Gandari': {
+    gradient: 'linear-gradient(135deg, #6A431C 0%, #D1842C 100%)',
+    emoji: '🎼',
+  },
+  Karawitan: {
+    gradient: 'linear-gradient(135deg, #1E5A36 0%, #2D7A4A 100%)',
+    emoji: '🏺',
+  },
+  Wayang: {
+    gradient: 'linear-gradient(135deg, #4A235A 0%, #6C2E8F 100%)',
+    emoji: '🎭',
+  },
+  'Tari Tradisional': {
+    gradient: 'linear-gradient(135deg, #4A4A10 0%, #7A7A1F 100%)',
+    emoji: '🎵',
+  },
+  'Budaya Lokal': {
+    gradient: 'linear-gradient(135deg, #6F2B16 0%, #9B431F 100%)',
+    emoji: '🥁',
+  },
+}
+
 export const formatRupiah = (amount: number): string =>
   new Intl.NumberFormat('id-ID', {
     style: 'currency',
@@ -55,6 +84,12 @@ export const toDatetimeLocal = (isoString: string): string => {
 
 export const classNames = (...values: Array<string | false | null | undefined>) =>
   values.filter(Boolean).join(' ')
+
+export const getEventTheme = (category: string) =>
+  EVENT_THEME_MAP[category] ?? {
+    gradient: 'linear-gradient(135deg, #4A3218 0%, #C8792A 100%)',
+    emoji: '🎶',
+  }
 
 export const mapTicketRow = (ticket: Record<string, unknown>): Tiket => ({
   id: Number(ticket.id),

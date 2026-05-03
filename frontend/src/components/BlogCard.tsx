@@ -1,5 +1,5 @@
+import { ArrowRight } from 'lucide-react'
 import { BlogArticle } from '../types'
-import Button from './ui/Button'
 
 interface BlogCardProps {
   article: BlogArticle
@@ -8,48 +8,39 @@ interface BlogCardProps {
 
 export default function BlogCard({ article, onReadMore }: BlogCardProps) {
   return (
-    <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition">
-      {/* Card header dengan gradient */}
-      <div
-        className="h-40 flex items-center justify-center text-5xl font-bold text-white"
-        style={{
-          background: 'linear-gradient(135deg, #1A1208, #C8792A)'
-        }}
+    <article className="cream-panel overflow-hidden transition duration-300 hover:-translate-y-1 hover:shadow-soft">
+      <button
+        type="button"
+        onClick={onReadMore}
+        className="grid w-full text-left md:grid-cols-[190px_minmax(0,1fr)]"
       >
-        {article.kategori === 'Budaya' && '🎼'}
-        {article.kategori === 'Edukasi' && '📚'}
-        {article.kategori === 'Tips' && '💡'}
-      </div>
-
-      {/* Card body */}
-      <div className="p-6">
-        {/* Kategori badge */}
-        <span className="text-xs font-semibold uppercase tracking-wide text-saffron">
-          {article.kategori}
-        </span>
-
-        {/* Judul */}
-        <h3 className="font-display text-xl font-bold text-dark mt-2 mb-2 line-clamp-2">
-          {article.judul}
-        </h3>
-
-        {/* Tanggal */}
-        <p className="text-sm text-gray-600 mb-3">{article.tanggal}</p>
-
-        {/* Excerpt */}
-        <p className="text-sm text-gray-700 mb-4 line-clamp-2">
-          {article.excerpt}
-        </p>
-
-        {/* Tombol Baca Selengkapnya */}
-        <Button
-          variant="primary"
-          onClick={onReadMore}
-          className="w-full"
+        <div
+          className="flex h-40 items-center justify-center text-5xl md:h-full md:min-h-[180px]"
+          style={{ background: article.gradient || 'linear-gradient(135deg, #1C1208, #C8792A)' }}
         >
-          Baca Selengkapnya
-        </Button>
-      </div>
-    </div>
+          <span className="opacity-70">{article.emoji || '🎵'}</span>
+        </div>
+        <div className="p-6 md:p-8">
+          <div className="text-xs font-semibold uppercase tracking-[0.18em] text-saffron">
+            {article.kategori}
+          </div>
+          <h3 className="mt-3 font-display text-[2rem] font-bold leading-tight text-dark">
+            {article.judul}
+          </h3>
+          <p className="mt-4 text-sm leading-7 text-dark/65">{article.excerpt}</p>
+          <div className="mt-5 flex flex-wrap items-center gap-2 text-sm text-dark/68">
+            <span className="font-semibold text-dark">{article.author}</span>
+            <span>•</span>
+            <span>{article.tanggal}</span>
+            <span>•</span>
+            <span>{article.readTime} menit baca</span>
+          </div>
+          <div className="mt-5 inline-flex items-center gap-2 font-semibold text-saffron">
+            Baca
+            <ArrowRight className="h-4 w-4" />
+          </div>
+        </div>
+      </button>
+    </article>
   )
 }

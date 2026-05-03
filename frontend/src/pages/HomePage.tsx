@@ -1,221 +1,148 @@
-import { ArrowRight, CalendarHeart, MapPin, Search } from 'lucide-react'
 import { useMemo, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import EventCard from '../components/EventCard'
 import Button from '../components/ui/Button'
 import Spinner from '../components/ui/Spinner'
 import { useEvents } from '../hooks/useEvents'
-
-const categories = [
-  { label: 'Gending Gandari', emoji: '🎼' },
-  { label: 'Karawitan', emoji: '🪘' },
-  { label: 'Wayang', emoji: '🎭' },
-  { label: 'Tari Tradisional', emoji: '🎵' },
-]
+import { toDateOnly } from '../utils/helpers'
 
 export default function HomePage() {
-  const navigate = useNavigate()
-  const [search, setSearch] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState('Semua Kategori')
+  const [selectedCity, setSelectedCity] = useState('Semua Kota')
+  const [selectedDate, setSelectedDate] = useState('Semua Tanggal')
   const { rawEvents, loading, error } = useEvents()
 
-  const featuredEvents = useMemo(
-    () =>
-      rawEvents
-        .filter((event) => ['tersedia', 'terbatas'].includes(event.status))
-        .slice(0, 3),
+  const categories = useMemo(
+    () => ['Semua Kategori', ...Array.from(new Set(rawEvents.map((event) => event.kategori)))],
+    [rawEvents]
+  )
+  const cities = useMemo(
+    () => ['Semua Kota', ...Array.from(new Set(rawEvents.map((event) => event.kota)))],
+    [rawEvents]
+  )
+  const dates = useMemo(
+    () => ['Semua Tanggal', ...Array.from(new Set(rawEvents.map((event) => toDateOnly(event.tanggal))))],
     [rawEvents]
   )
 
-  const totalCities = new Set(rawEvents.map((event) => event.kota)).size
-
-  const handleSearch = (event: React.FormEvent) => {
-    event.preventDefault()
-    navigate(`/events?search=${encodeURIComponent(search.trim())}`)
-  }
+  const filteredEvents = useMemo(
+    () =>
+      rawEvents.filter((event) => {
+        if (selectedCategory !== 'Semua Kategori' && event.kategori !== selectedCategory) return false
+        if (selectedCity !== 'Semua Kota' && event.kota !== selectedCity) return false
+        if (selectedDate !== 'Semua Tanggal' && toDateOnly(event.tanggal) !== selectedDate) return false
+        return true
+      }),
+    [rawEvents, selectedCategory, selectedCity, selectedDate]
+  )
 
   return (
-    <div>
-      <section className="hero-pattern relative overflow-hidden bg-dark py-24 text-white sm:py-28">
-        <div className="container-page relative z-10 grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
-          <div className="space-y-8">
-            <div className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-2 text-sm font-semibold text-gold">
-              <CalendarHeart className="h-4 w-4" />
-              Ticketing Seni Budaya Indonesia
+    <div className="page-shell">
+      <section className="relative overflow-hidden bg-dark text-white">
+        <div className="absolute inset-0">
+          <img 
+            src="https://images.unsplash.com/photo-1604928141064-207cea73014e?auto=format&fit=crop&w=2000&q=80" 
+            alt="Pertunjukan Seni Indonesia" 
+            className="h-full w-full object-cover opacity-40 mix-blend-overlay"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/80 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent"></div>
+        </div>
+        <div className="container-page relative z-10 py-24 sm:py-36">
+          <div className="max-w-3xl space-y-7">
+            <div className="inline-flex rounded-full border border-gold/65 bg-dark/50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-gold backdrop-blur-sm">
+              🎶 Seni Tradisional Indonesia
             </div>
 
-            <div className="space-y-5">
-              <h1 className="max-w-3xl font-display text-5xl font-bold leading-tight text-white sm:text-6xl">
-                Temukan Pertunjukan Seni Budaya Terbaik
+            <div>
+              <h1 className="font-display text-[3.1rem] font-bold leading-none sm:text-[5.5rem] text-white">
+                Temukan Pesona
+                <br />
+                <span className="italic text-gold">Gending Gandari</span>
               </h1>
-              <p className="max-w-2xl font-body text-lg leading-8 text-cream/80">
-                Gending Gandari, Karawitan, Wayang, dan Tari Tradisional dalam
-                satu platform yang merayakan pengalaman panggung yang hangat,
-                indah, dan dekat dengan akar budaya Nusantara.
+              <p className="mt-6 max-w-xl text-lg leading-9 text-white/90">
+                Platform digital yang menghubungkan pecinta seni dengan pertunjukan Gending Gandari dan seni karawitan terbaik di seluruh Indonesia.
               </p>
             </div>
 
-            <form
-              onSubmit={handleSearch}
-              className="flex flex-col gap-3 rounded-[28px] border border-white/10 bg-white/10 p-3 backdrop-blur sm:flex-row"
-            >
-              <div className="flex flex-1 items-center gap-3 rounded-2xl bg-white px-4 py-3 text-dark">
-                <Search className="h-5 w-5 text-saffron" />
-                <input
-                  type="text"
-                  placeholder="Cari pertunjukan, kota, atau kategori..."
-                  className="w-full bg-transparent text-sm outline-none placeholder:text-dark/40"
-                  value={search}
-                  onChange={(event) => setSearch(event.target.value)}
-                />
-              </div>
-              <Button type="submit" size="lg" className="sm:min-w-[180px]">
-                Cari
-              </Button>
-            </form>
-
-            <div className="grid gap-4 sm:grid-cols-3">
-              <div className="glass-panel rounded-[28px] px-5 py-4">
-                <div className="text-3xl font-bold text-white">{rawEvents.length}</div>
-                <div className="text-sm text-cream/70">Pertunjukan</div>
-              </div>
-              <div className="glass-panel rounded-[28px] px-5 py-4">
-                <div className="text-3xl font-bold text-white">4</div>
-                <div className="text-sm text-cream/70">Kategori</div>
-              </div>
-              <div className="glass-panel rounded-[28px] px-5 py-4">
-                <div className="text-3xl font-bold text-white">{totalCities || 0}</div>
-                <div className="text-sm text-cream/70">Kota</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="relative hidden lg:block">
-            <div className="absolute inset-8 rounded-full bg-gold/10 blur-3xl" />
-            <div className="relative space-y-4 rounded-[36px] border border-white/10 bg-white/10 p-8 shadow-2xl backdrop-blur">
-              <div className="rounded-[28px] bg-gradient-to-br from-saffron via-gold to-cultureGreen p-8 text-center">
-                <div className="mb-4 text-7xl">🎭</div>
-                <div className="font-display text-2xl font-bold text-white">
-                  Musim Pertunjukan Nusantara
-                </div>
-                <div className="mt-2 text-sm leading-6 text-white/80">
-                  Jelajahi pertunjukan eksklusif dengan nuansa visual yang
-                  terinspirasi dari panggung budaya tradisional Indonesia.
-                </div>
-              </div>
-              <div className="grid gap-3 sm:grid-cols-2">
-                <div className="rounded-3xl bg-white/10 p-4">
-                  <div className="mb-2 flex items-center gap-2 text-gold">
-                    <MapPin className="h-4 w-4" />
-                    Kota Aktif
-                  </div>
-                  <div className="font-display text-3xl font-bold text-white">
-                    {totalCities || 4}
-                  </div>
-                </div>
-                <div className="rounded-3xl bg-white/10 p-4">
-                  <div className="mb-2 flex items-center gap-2 text-gold">
-                    <CalendarHeart className="h-4 w-4" />
-                    Highlight
-                  </div>
-                  <div className="font-display text-3xl font-bold text-white">
-                    {featuredEvents.length}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="container-page py-20">
-        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div className="space-y-3">
-            <p className="text-sm font-semibold uppercase tracking-[0.32em] text-saffron">
-              Pertunjukan Pilihan
-            </p>
-            <h2 className="section-title">Pilihan terbaik untuk akhir pekan budaya</h2>
-            <p className="section-copy">
-              Event unggulan ini diambil langsung dari API backend dan dipilih dari
-              pertunjukan yang masih tersedia atau hampir habis.
-            </p>
-          </div>
-          <Link to="/events" className="self-start sm:self-auto">
-            <Button variant="secondary">
-              Lihat Semua
-            </Button>
-          </Link>
-        </div>
-
-        {loading ? (
-          <div className="flex min-h-[240px] items-center justify-center">
-            <Spinner size="lg" />
-          </div>
-        ) : error ? (
-          <div className="rounded-[28px] border border-cultureRed/20 bg-cultureRed/5 p-6 text-cultureRed">
-            {error}
-          </div>
-        ) : (
-          <div className="grid gap-6 lg:grid-cols-3">
-            {featuredEvents.map((event) => (
-              <EventCard key={event.id} event={event} />
-            ))}
-          </div>
-        )}
-      </section>
-
-      <section className="bg-white py-20">
-        <div className="container-page">
-          <div className="mb-10 space-y-3">
-            <p className="text-sm font-semibold uppercase tracking-[0.32em] text-saffron">
-              Kategori Seni
-            </p>
-            <h2 className="section-title">Jelajahi panggung yang paling dekat dengan seleramu</h2>
-          </div>
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {categories.map((category) => (
-              <Link
-                key={category.label}
-                to={`/events?kategori=${encodeURIComponent(category.label)}`}
-                className="group rounded-[30px] border border-dark/10 bg-cream p-6 transition hover:-translate-y-1 hover:border-saffron/30 hover:shadow-soft"
-              >
-                <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-3xl bg-gradient-to-br from-saffron to-gold text-3xl shadow-lg shadow-saffron/20">
-                  {category.emoji}
-                </div>
-                <div className="font-display text-2xl font-bold text-dark">
-                  {category.label}
-                </div>
-                <p className="mt-3 font-body text-sm leading-7 text-dark/70">
-                  Kurasi pertunjukan dengan nuansa artistik yang khas dan autentik.
-                </p>
-                <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-saffron">
-                  Lihat event
-                  <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20">
-        <div className="container-page">
-          <div className="rounded-[36px] bg-gradient-to-r from-dark via-[#2B1D12] to-dark px-8 py-12 text-center text-white shadow-soft sm:px-14">
-            <p className="text-sm font-semibold uppercase tracking-[0.32em] text-gold">
-              Siap menyaksikan pertunjukan?
-            </p>
-            <h2 className="mt-4 font-display text-4xl font-bold sm:text-5xl">
-              Pesan tiketmu sebelum kehabisan
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl font-body text-lg leading-8 text-cream/80">
-              Temukan panggung tradisi yang paling kamu tunggu, lalu lanjutkan ke
-              proses pemesanan hanya dalam beberapa langkah.
-            </p>
-            <div className="mt-8 flex justify-center">
+            <div className="flex flex-wrap gap-4 pt-2">
               <Link to="/events">
-                <Button size="lg">Lihat Semua Event</Button>
+                <Button size="lg" className="bg-saffron hover:bg-saffron/90 text-white border-none">Jelajahi Pertunjukan</Button>
+              </Link>
+              <Link to="/tentang">
+                <Button
+                  size="lg"
+                  variant="secondary"
+                  className="border-white/40 text-white hover:bg-white/10 backdrop-blur-sm"
+                >
+                  Tentang Kami
+                </Button>
               </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="border-b border-saffron/15 bg-white py-5">
+        <div className="container-page flex flex-col gap-3 lg:flex-row lg:items-center">
+          <div className="text-sm font-semibold uppercase tracking-[0.18em] text-muted">Filter</div>
+          <div className="grid flex-1 gap-3 sm:grid-cols-3">
+            <select
+              value={selectedCategory}
+              onChange={(event) => setSelectedCategory(event.target.value)}
+              className="h-12 rounded-[10px] border border-[#e8d5b5] bg-cream px-4 text-sm text-dark outline-none transition focus:border-saffron focus:ring-4 focus:ring-saffron/10"
+            >
+              {categories.map((category) => (
+                <option key={category}>{category}</option>
+              ))}
+            </select>
+            <select
+              value={selectedCity}
+              onChange={(event) => setSelectedCity(event.target.value)}
+              className="h-12 rounded-[10px] border border-[#e8d5b5] bg-cream px-4 text-sm text-dark outline-none transition focus:border-saffron focus:ring-4 focus:ring-saffron/10"
+            >
+              {cities.map((city) => (
+                <option key={city}>{city}</option>
+              ))}
+            </select>
+            <select
+              value={selectedDate}
+              onChange={(event) => setSelectedDate(event.target.value)}
+              className="h-12 rounded-[10px] border border-[#e8d5b5] bg-cream px-4 text-sm text-dark outline-none transition focus:border-saffron focus:ring-4 focus:ring-saffron/10"
+            >
+              {dates.map((date) => (
+                <option key={date}>{date}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-cream py-12 sm:py-16">
+        <div className="container-page">
+          <h2 className="section-title">Semua Pertunjukan</h2>
+
+          {loading ? (
+            <div className="flex min-h-[300px] items-center justify-center">
+              <Spinner size="lg" />
+            </div>
+          ) : error ? (
+            <div className="mt-8 rounded-[12px] border border-cultureRed/20 bg-cultureRed/5 p-6 text-cultureRed">
+              {error}
+            </div>
+          ) : (
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {filteredEvents.map((event) => (
+                <EventCard key={event.id} event={event} />
+              ))}
+            </div>
+          )}
+
+          {!loading && !error && !filteredEvents.length ? (
+            <div className="mt-8 rounded-[12px] border border-[#ead7bc] bg-white px-6 py-12 text-center text-dark/68">
+              Tidak ada pertunjukan yang cocok dengan filter yang dipilih.
+            </div>
+          ) : null}
         </div>
       </section>
     </div>
