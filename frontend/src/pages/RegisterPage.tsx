@@ -54,87 +54,136 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="container-page py-16">
-      <div className="mx-auto max-w-2xl">
-        <Card className="overflow-hidden p-0">
-          <div className="bg-gradient-to-br from-dark via-[#2A1A08] to-saffron p-8 text-center text-white">
-            <div className="mb-3 text-5xl">🎼</div>
-            <h1 className="font-display text-4xl font-bold">Buat Akun Baru</h1>
-            <p className="mt-2 font-body text-white/75">
-              Daftar untuk mulai memesan pertunjukan favoritmu
-            </p>
+    <div className="flex min-h-[calc(100vh-80px)] w-full">
+      <div className="relative hidden w-1/2 flex-col justify-center bg-culturePurple p-12 text-white lg:flex xl:p-20 overflow-hidden">
+        <div className="absolute left-12 top-12 flex items-center gap-3 z-10">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-saffron text-white">
+            <span className="text-xl">🎵</span>
+          </div>
+          <span className="font-display text-2xl font-bold">SeniLokal</span>
+        </div>
+        
+        <div className="absolute -right-24 top-1/2 -translate-y-1/2 text-[30rem] text-white/[0.03] select-none">
+          🎵
+        </div>
+
+        <div className="relative z-10 max-w-xl">
+          <h1 className="mb-6 font-display text-4xl font-bold leading-tight xl:text-5xl">
+            Bergabunglah Bersama<br /><span className="text-saffron italic">Komunitas Seni</span>
+          </h1>
+          <p className="text-white/70 font-body text-sm xl:text-base leading-relaxed max-w-md">
+            Daftarkan diri Anda dan jadilah bagian dari ribuan pecinta seni Gending Gandari yang melestarikan warisan budaya Nusantara.
+          </p>
+        </div>
+      </div>
+
+      <div className="flex w-full items-center justify-center bg-cream p-8 lg:w-1/2 py-12">
+        <div className="w-full max-w-md">
+          <div className="mb-10 text-center">
+            <h2 className="font-display text-4xl font-bold text-dark">Daftar</h2>
+            <p className="mt-2 text-dark/60 text-sm">Bergabunglah Dengan Kami</p>
           </div>
 
-          <div className="p-8">
-            <form onSubmit={handleSubmit} className="grid gap-5 md:grid-cols-2">
-              <Input
-                label="Nama Lengkap"
-                value={form.nama}
-                onChange={(event) => updateField('nama', event.target.value)}
-                required
-              />
-              <Input
-                label="Username"
-                value={form.username}
-                onChange={(event) => updateField('username', event.target.value)}
-                required
-              />
-              <Input
-                label="Email"
-                type="email"
-                value={form.email}
-                onChange={(event) => updateField('email', event.target.value)}
-                required
-              />
-              <Input
-                label="Password"
-                type="password"
-                minLength={6}
-                value={form.password}
-                onChange={(event) => updateField('password', event.target.value)}
-                required
-              />
-              <Input
-                label="No. Telepon"
-                value={form.telepon}
-                onChange={(event) => updateField('telepon', event.target.value)}
-              />
-              <Input
-                label="Kota"
-                value={form.kota}
-                onChange={(event) => updateField('kota', event.target.value)}
-              />
-              <Input
-                label="Umur"
-                type="number"
-                min={1}
-                value={form.umur ?? ''}
-                onChange={(event) =>
-                  updateField('umur', event.target.value ? Number(event.target.value) : undefined)
-                }
-              />
-              <div className="md:col-span-2">
-                {error ? (
-                  <div className="rounded-2xl border border-cultureRed/20 bg-cultureRed/5 px-4 py-3 text-sm text-cultureRed">
-                    {error}
-                  </div>
-                ) : null}
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="flex gap-4">
+              <div className="w-2/3">
+                <Input
+                  label="Nama Lengkap"
+                  value={form.nama}
+                  onChange={(event) => updateField('nama', event.target.value)}
+                  required
+                  placeholder="Nama Lengkap"
+                  className="bg-white"
+                />
               </div>
-              <div className="md:col-span-2">
-                <Button type="submit" fullWidth size="lg" loading={loading}>
-                  Daftar
-                </Button>
+              <div className="w-1/3">
+                <Input
+                  label="Umur"
+                  type="number"
+                  min={1}
+                  value={form.umur ?? ''}
+                  onChange={(event) =>
+                    updateField('umur', event.target.value ? Number(event.target.value) : undefined)
+                  }
+                  placeholder="Umur"
+                  className="bg-white"
+                />
               </div>
-            </form>
+            </div>
+            
+            <Input
+              label="Asal Kota"
+              value={form.kota}
+              onChange={(event) => updateField('kota', event.target.value)}
+              placeholder="Kota Anda"
+              className="bg-white"
+            />
+            
+            <Input
+              label="Username"
+              value={form.username}
+              onChange={(event) => updateField('username', event.target.value)}
+              required
+              placeholder="Username unik Anda"
+              className="bg-white"
+            />
+            
+            <Input
+              label="Email"
+              type="email"
+              value={form.email}
+              onChange={(event) => updateField('email', event.target.value)}
+              required
+              placeholder="email@contoh.com"
+              className="bg-white"
+            />
+            
+            <Input
+              label="Password"
+              type="password"
+              minLength={6}
+              value={form.password}
+              onChange={(event) => updateField('password', event.target.value)}
+              required
+              placeholder="********"
+              className="bg-white"
+            />
+            
+            <Input
+              label="Nomor Telepon"
+              value={form.telepon}
+              onChange={(event) => updateField('telepon', event.target.value)}
+              placeholder="+62 8xx xxxx xxxx"
+              className="bg-white"
+            />
 
-            <div className="mt-6 text-center text-sm text-dark/65">
-              Sudah punya akun?{' '}
-              <Link className="font-semibold text-saffron" to="/login">
-                Masuk
-              </Link>
+            {error ? (
+              <div className="rounded-xl border border-cultureRed/20 bg-cultureRed/5 px-4 py-3 text-sm text-cultureRed">
+                {error}
+              </div>
+            ) : null}
+
+            <Button type="submit" fullWidth size="lg" loading={loading} className="mt-4">
+              Daftar
+            </Button>
+          </form>
+
+          <div className="relative my-8">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-dark/10"></div>
+            </div>
+            <div className="relative flex justify-center text-xs">
+              <span className="bg-cream px-4 text-dark/50">Atau</span>
             </div>
           </div>
-        </Card>
+
+          <div className="text-center text-sm text-dark/70">
+            Sudah punya akun?{' '}
+            <Link className="font-semibold text-saffron hover:underline" to="/login">
+              Masuk Sekarang
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   )
