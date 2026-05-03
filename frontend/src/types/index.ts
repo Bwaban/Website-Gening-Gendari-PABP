@@ -102,11 +102,13 @@ export interface EventFormData {
 export interface BlogArticle {
   id: string
   judul: string
-  kategori: 'Budaya' | 'Edukasi' | 'Tips'
+  kategori: string
   tanggal: string
   author: string
   excerpt: string
   content: string
   image: string
   readTime: number
+  emoji?: string
+  gradient?: string
 }

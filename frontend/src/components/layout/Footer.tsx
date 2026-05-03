@@ -8,17 +8,13 @@ export default function Footer() {
       <div className="container-page grid gap-10 py-14 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
         <div className="space-y-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-saffron to-gold text-xl">
-              🎼
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-saffron to-gold text-xl">
+              🎵
             </div>
-            <div>
-              <div className="font-display text-xl font-bold text-white">SeniLokal</div>
-              <div className="text-xs uppercase tracking-[0.28em] text-cream/50">Tixly</div>
-            </div>
+            <div className="font-display text-[2rem] font-bold leading-none text-white">SeniLokal</div>
           </div>
           <p className="max-w-md font-body leading-7 text-cream/70">
-            Platform ticketing pertunjukan seni budaya lokal Indonesia untuk
-            menemukan, memesan, dan merayakan kekayaan tradisi Nusantara.
+            Platform digital untuk melestarikan dan mempromosikan seni budaya Gending Gandari dan karawitan Indonesia.
           </p>
         </div>
 
@@ -30,8 +26,8 @@ export default function Footer() {
             <Link className="block transition hover:text-saffron" to="/">
               Beranda
             </Link>
-            <Link className="block transition hover:text-saffron" to="/events">
-              Event
+            <Link className="block transition hover:text-saffron" to="/tentang">
+              Tentang
             </Link>
             <Link className="block transition hover:text-saffron" to="/blog">
               Blog
@@ -64,15 +60,15 @@ export default function Footer() {
             Kontak
           </h3>
           <div className="space-y-3 text-sm text-cream/70">
-            <p>info@senilokal.id</p>
-            <p>+62 811-XXXX-XXXX</p>
-            <p>Bandung, Jawa Barat, Indonesia</p>
+            <p>Email@Email.com</p>
+            <p>+62 812 1234 5678</p>
+            <p>Jl. Kebanggan no 123, Jakarta</p>
           </div>
         </div>
       </div>
 
       <div className="border-t border-white/10 py-5 text-center text-sm text-cream/50">
-        © {new Date().getFullYear()} SeniLokal. Dibangun untuk pelestarian seni budaya Indonesia.
+        © {new Date().getFullYear()} SeniLokal. Dibuat dengan ❤ untuk pelestarian seni budaya Indonesia.
       </div>
     </footer>
   )

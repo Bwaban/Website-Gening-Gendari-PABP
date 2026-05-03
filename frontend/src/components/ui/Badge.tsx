@@ -7,16 +7,16 @@ interface BadgeProps {
 }
 
 const statusClasses: Record<string, string> = {
-  tersedia: 'bg-cultureGreen text-white',
-  terbatas: 'bg-cultureYellow text-white',
-  habis: 'bg-cultureRed text-white',
+  tersedia: 'bg-cultureGreen/10 text-cultureGreen',
+  terbatas: 'bg-cultureYellow/20 text-saffron',
+  habis: 'bg-cultureRed/10 text-cultureRed',
 }
 
 const categoryClasses: Record<string, string> = {
-  'Gending Gandari': 'bg-saffron text-white',
-  Karawitan: 'bg-cultureGreen text-white',
-  Wayang: 'bg-culturePurple text-white',
-  'Tari Tradisional': 'bg-cultureOlive text-white',
+  'Gending Gandari': 'bg-saffron/10 text-saffron',
+  Karawitan: 'bg-cultureGreen/10 text-cultureGreen',
+  Wayang: 'bg-culturePurple/10 text-culturePurple',
+  'Tari Tradisional': 'bg-cultureOlive/10 text-cultureOlive',
 }
 
 export default function Badge({

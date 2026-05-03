@@ -10,6 +10,7 @@ import ETicketPage from './pages/ETicketPage'
 import BlogPage from './pages/BlogPage'
 import BlogDetailPage from './pages/BlogDetailPage'
 import KontakPage from './pages/KontakPage'
+import TentangPage from './pages/TentangPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import RiwayatTiketPage from './pages/RiwayatTiketPage'
@@ -36,6 +37,7 @@ export default function App() {
     <Routes>
       <Route element={<SiteLayout />}>
         <Route path="/" element={<HomePage />} />
+        <Route path="/tentang" element={<TentangPage />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/events/:id" element={<EventDetailPage />} />
         <Route path="/blog" element={<BlogPage />} />

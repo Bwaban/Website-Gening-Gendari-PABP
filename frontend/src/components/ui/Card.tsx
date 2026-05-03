@@ -22,7 +22,7 @@ export default function Card({
   return (
     <div
       className={classNames(
-        'rounded-[28px] border border-dark/10 bg-white shadow-soft',
+        'rounded-[12px] border border-[#ead7bc] bg-white shadow-panel',
         paddingMap[padding],
         className
       )}
