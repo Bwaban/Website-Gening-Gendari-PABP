@@ -74,7 +74,7 @@ export default function LoginPage() {
         <div className="w-full max-w-md">
           <div className="mb-10 text-center">
             <h2 className="font-display text-4xl font-bold text-dark">Masuk</h2>
-            <p className="mt-2 text-dark/60 text-sm">Selamat datang kembali</p>
+            <p className="mt-2 text-dark/75 text-sm">Selamat datang kembali</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
@@ -125,11 +125,11 @@ export default function LoginPage() {
               <div className="w-full border-t border-dark/10"></div>
             </div>
             <div className="relative flex justify-center text-xs">
-              <span className="bg-cream px-4 text-dark/50">Atau</span>
+              <span className="bg-cream px-4 text-dark/65">Atau</span>
             </div>
           </div>
 
-          <div className="text-center text-sm text-dark/70">
+          <div className="text-center text-sm text-dark/80">
             Belum punya akun?{' '}
             <Link className="font-semibold text-saffron hover:underline" to="/register">
               Daftar Sekarang

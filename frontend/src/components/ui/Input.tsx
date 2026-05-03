@@ -17,7 +17,7 @@ type InputProps = SharedProps &
   TextareaHTMLAttributes<HTMLTextAreaElement>
 
 const baseClassName =
-  'w-full rounded-[10px] border border-[#e8d5b5] bg-[#fffdfa] px-4 py-3 text-sm text-dark shadow-sm outline-none transition placeholder:text-dark/35 focus:border-saffron focus:ring-4 focus:ring-saffron/10'
+  'w-full rounded-[10px] border border-[#e8d5b5] bg-[#fffdfa] px-4 py-3 text-sm text-dark shadow-sm outline-none transition placeholder:text-dark/50 focus:border-saffron focus:ring-4 focus:ring-saffron/10'
 
 const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
   function Input({ label, error, className, textarea = false, ...props }, ref) {

@@ -85,7 +85,7 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              <span className="hidden text-sm text-dark/65 xl:block">{user?.nama}</span>
+              <span className="hidden text-sm text-dark/80 xl:block">{user?.nama}</span>
               <Link to={isAdmin ? '/admin/dashboard' : '/riwayat'}>
                 <Button variant="secondary" className="min-w-[92px] bg-transparent">
                   {isAdmin ? 'Admin' : 'Tiket'}
@@ -158,7 +158,7 @@ export default function Navbar() {
               </div>
             ) : (
               <div className="rounded-[12px] border border-saffron/15 bg-white p-4">
-                <div className="mb-3 text-sm text-dark/70">
+                <div className="mb-3 text-sm text-dark/80">
                   Masuk sebagai <span className="font-semibold text-dark">{user?.nama}</span>
                 </div>
                 <div className="grid gap-3">

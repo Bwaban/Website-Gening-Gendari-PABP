@@ -38,33 +38,42 @@ export default function HomePage() {
 
   return (
     <div className="page-shell">
-      <section className="hero-pattern relative overflow-hidden bg-gradient-to-r from-dark via-mid to-saffron text-white">
-        <div className="container-page py-20 sm:py-28">
+      <section className="relative overflow-hidden bg-dark text-white">
+        <div className="absolute inset-0">
+          <img 
+            src="https://images.unsplash.com/photo-1604928141064-207cea73014e?auto=format&fit=crop&w=2000&q=80" 
+            alt="Pertunjukan Seni Indonesia" 
+            className="h-full w-full object-cover opacity-40 mix-blend-overlay"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/80 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent"></div>
+        </div>
+        <div className="container-page relative z-10 py-24 sm:py-36">
           <div className="max-w-3xl space-y-7">
-            <div className="inline-flex rounded-full border border-gold/65 bg-gold/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-gold">
+            <div className="inline-flex rounded-full border border-gold/65 bg-dark/50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-gold backdrop-blur-sm">
               🎶 Seni Tradisional Indonesia
             </div>
 
             <div>
-              <h1 className="font-display text-[3.1rem] font-bold leading-none sm:text-[5.5rem]">
+              <h1 className="font-display text-[3.1rem] font-bold leading-none sm:text-[5.5rem] text-white">
                 Temukan Pesona
                 <br />
                 <span className="italic text-gold">Gending Gandari</span>
               </h1>
-              <p className="mt-6 max-w-xl text-lg leading-9 text-white/84">
+              <p className="mt-6 max-w-xl text-lg leading-9 text-white/90">
                 Platform digital yang menghubungkan pecinta seni dengan pertunjukan Gending Gandari dan seni karawitan terbaik di seluruh Indonesia.
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 pt-2">
               <Link to="/events">
-                <Button size="lg">Jelajahi Pertunjukan</Button>
+                <Button size="lg" className="bg-saffron hover:bg-saffron/90 text-white border-none">Jelajahi Pertunjukan</Button>
               </Link>
               <Link to="/tentang">
                 <Button
                   size="lg"
                   variant="secondary"
-                  className="border-white/60 text-white hover:bg-white/10"
+                  className="border-white/40 text-white hover:bg-white/10 backdrop-blur-sm"
                 >
                   Tentang Kami
                 </Button>

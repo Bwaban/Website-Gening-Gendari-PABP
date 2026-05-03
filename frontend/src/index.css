@@ -46,7 +46,7 @@
   }
 
   .section-copy {
-    @apply max-w-2xl font-body text-base leading-8 text-dark/72;
+    @apply max-w-2xl font-body text-base leading-8 text-dark/85;
   }
 
   .glass-panel {
