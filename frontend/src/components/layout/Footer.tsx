@@ -7,12 +7,10 @@ export default function Footer() {
     <footer className="border-t border-dark/10 bg-dark text-cream">
       <div className="container-page grid gap-10 py-14 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
         <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-saffron to-gold text-xl">
-              🎵
-            </div>
+          <Link to="/" className="flex items-center gap-3">
+            <img src="/g2pro.svg" alt="SeniLokal Logo" className="h-10 w-auto brightness-0 invert" />
             <div className="font-display text-[2rem] font-bold leading-none text-white">SeniLokal</div>
-          </div>
+          </Link>
           <p className="max-w-md font-body leading-7 text-cream/70">
             Platform digital untuk melestarikan dan mempromosikan seni budaya Gending Gandari dan karawitan Indonesia.
           </p>

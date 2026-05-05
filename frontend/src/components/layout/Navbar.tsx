@@ -44,9 +44,7 @@ export default function Navbar() {
     >
       <div className="container-page flex h-20 items-center justify-between gap-6">
         <Link to="/" className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-saffron to-gold text-xl shadow-lg shadow-saffron/20">
-            🎵
-          </div>
+          <img src="/g2pro.svg" alt="SeniLokal Logo" className="h-10 w-auto" />
           <div className="font-display text-[2rem] font-bold leading-none text-dark">SeniLokal</div>
         </Link>
 

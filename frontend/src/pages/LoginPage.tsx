@@ -50,14 +50,12 @@ export default function LoginPage() {
     <div className="flex min-h-[calc(100vh-80px)] w-full">
       <div className="relative hidden w-1/2 flex-col justify-center bg-dark p-12 text-white lg:flex xl:p-20 overflow-hidden">
         <div className="absolute left-12 top-12 flex items-center gap-3 z-10">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#C8792A] text-white">
-            <span className="text-xl">🎵</span>
-          </div>
+          <img src="/g2pro.svg" alt="Logo" className="h-10 w-auto brightness-0 invert" />
           <span className="font-display text-2xl font-bold">SeniLokal</span>
         </div>
         
-        <div className="absolute -right-24 top-1/2 -translate-y-1/2 text-[30rem] text-white/[0.03] select-none">
-          🎵
+        <div className="absolute -right-24 top-1/2 -translate-y-1/2 opacity-[0.03] select-none pointer-events-none">
+          <img src="/g2pro.svg" alt="" className="w-[40rem] h-auto brightness-0 invert" />
         </div>
 
         <div className="relative z-10 max-w-xl">
