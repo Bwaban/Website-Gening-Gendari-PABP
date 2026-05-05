@@ -39,10 +39,36 @@ const stats = [
 ]
 
 const team = [
-  ['Dwiki Muhammad', 'Founder & CEO'],
-  ['Maimunah Sari', 'Head of Culture'],
-  ['Rizki Pratama', 'Lead Developer'],
-  ['Siti Rahma', 'Community Manager'],
+  {
+    name: 'Dwiki Muhammad',
+    nim: '12014001',
+    role: 'Founder & CEO',
+    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  },
+  {
+    name: 'Maimunah Sari',
+    nim: '12014002',
+    role: 'Head of Culture',
+    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  },
+  {
+    name: 'Rizki Pratama',
+    nim: '12014003',
+    role: 'Lead Developer',
+    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  },
+  {
+    name: 'Siti Rahma',
+    nim: '12014004',
+    role: 'Community Manager',
+    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  },
+  {
+    name: 'Budi Santoso',
+    nim: '12014005',
+    role: 'Creative Director',
+    image: 'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  },
 ]
 
 export default function TentangPage() {
@@ -149,32 +175,34 @@ export default function TentangPage() {
             <p className="section-copy mx-auto mt-3">Orang-orang di balik SeniLokal.</p>
           </div>
 
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-            {team.map(([name, role]) => (
-              <div key={name} className="cream-panel p-6 text-center">
-                <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-mid to-saffron text-3xl text-white">
-                  👤
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+            {team.map((member) => (
+              <div key={member.name} className="group relative overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-dark/5 transition-all hover:-translate-y-1 hover:shadow-lg text-center">
+                <div className="mx-auto h-24 w-24 overflow-hidden rounded-full ring-4 ring-saffron/20 bg-saffron/10 p-1">
+                  <img src={member.image} alt={member.name} className="h-full w-full object-cover rounded-full transition-transform duration-500 group-hover:scale-110" />
                 </div>
-                <h3 className="mt-5 font-display text-2xl font-bold text-dark">{name}</h3>
-                <p className="mt-2 text-sm text-dark/65">{role}</p>
+                <h3 className="mt-6 font-display text-lg font-bold text-dark">{member.name}</h3>
+                <p className="mt-1 text-xs font-semibold text-dark/72">{member.nim}</p>
+                <p className="mt-1 text-sm font-medium text-gold">{member.role}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="saffron-pattern bg-gradient-to-r from-saffron to-gold py-16 text-white sm:py-20">
-        <div className="container-page text-center">
-          <h2 className="font-display text-4xl font-bold sm:text-5xl">Bergabunglah Bersama Kami</h2>
-          <p className="mx-auto mt-4 max-w-2xl text-white/85">
+      <section className="bg-dark py-16 text-white sm:py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1C1208] to-[#4A3218] opacity-90"></div>
+        <div className="container-page text-center relative z-10">
+          <h2 className="font-display text-4xl font-bold sm:text-5xl text-gold text-shadow-sm">Bergabunglah Bersama Kami</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-white/90 font-medium">
             Mari bersama-sama melestarikan seni dan budaya Indonesia untuk generasi mendatang.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Link to="/">
-              <Button className="bg-white text-saffron hover:bg-cream">Jelajahi Pertunjukan</Button>
+              <Button className="bg-gold text-dark border-0 hover:bg-saffron hover:text-white font-bold transition-colors">Jelajahi Pertunjukan</Button>
             </Link>
             <Link to="/kontak">
-              <Button variant="secondary" className="border-white text-white hover:bg-white/10">
+              <Button variant="secondary" className="border-gold text-gold hover:bg-gold/10 font-bold transition-colors">
                 Hubungi Kami
               </Button>
             </Link>
