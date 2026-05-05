@@ -1,49 +1,69 @@
-import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
-import EventCard from '../components/EventCard'
-import Button from '../components/ui/Button'
-import Spinner from '../components/ui/Spinner'
-import { useEvents } from '../hooks/useEvents'
-import { toDateOnly } from '../utils/helpers'
+import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import EventCard from "../components/EventCard";
+import Button from "../components/ui/Button";
+import Spinner from "../components/ui/Spinner";
+import { useEvents } from "../hooks/useEvents";
+import { toDateOnly } from "../utils/helpers";
 
 export default function HomePage() {
-  const [selectedCategory, setSelectedCategory] = useState('Semua Kategori')
-  const [selectedCity, setSelectedCity] = useState('Semua Kota')
-  const [selectedDate, setSelectedDate] = useState('Semua Tanggal')
-  const { rawEvents, loading, error } = useEvents()
+  const [selectedCategory, setSelectedCategory] = useState("Semua Kategori");
+  const [selectedCity, setSelectedCity] = useState("Semua Kota");
+  const [selectedDate, setSelectedDate] = useState("Semua Tanggal");
+  const { rawEvents, loading, error } = useEvents();
 
   const categories = useMemo(
-    () => ['Semua Kategori', ...Array.from(new Set(rawEvents.map((event) => event.kategori)))],
-    [rawEvents]
-  )
+    () => [
+      "Semua Kategori",
+      ...Array.from(new Set(rawEvents.map((event) => event.kategori))),
+    ],
+    [rawEvents],
+  );
   const cities = useMemo(
-    () => ['Semua Kota', ...Array.from(new Set(rawEvents.map((event) => event.kota)))],
-    [rawEvents]
-  )
+    () => [
+      "Semua Kota",
+      ...Array.from(new Set(rawEvents.map((event) => event.kota))),
+    ],
+    [rawEvents],
+  );
   const dates = useMemo(
-    () => ['Semua Tanggal', ...Array.from(new Set(rawEvents.map((event) => toDateOnly(event.tanggal))))],
-    [rawEvents]
-  )
+    () => [
+      "Semua Tanggal",
+      ...Array.from(
+        new Set(rawEvents.map((event) => toDateOnly(event.tanggal))),
+      ),
+    ],
+    [rawEvents],
+  );
 
   const filteredEvents = useMemo(
     () =>
       rawEvents.filter((event) => {
-        if (selectedCategory !== 'Semua Kategori' && event.kategori !== selectedCategory) return false
-        if (selectedCity !== 'Semua Kota' && event.kota !== selectedCity) return false
-        if (selectedDate !== 'Semua Tanggal' && toDateOnly(event.tanggal) !== selectedDate) return false
-        return true
+        if (
+          selectedCategory !== "Semua Kategori" &&
+          event.kategori !== selectedCategory
+        )
+          return false;
+        if (selectedCity !== "Semua Kota" && event.kota !== selectedCity)
+          return false;
+        if (
+          selectedDate !== "Semua Tanggal" &&
+          toDateOnly(event.tanggal) !== selectedDate
+        )
+          return false;
+        return true;
       }),
-    [rawEvents, selectedCategory, selectedCity, selectedDate]
-  )
+    [rawEvents, selectedCategory, selectedCity, selectedDate],
+  );
 
   return (
     <div className="page-shell">
       <section className="relative overflow-hidden bg-dark text-white">
         <div className="absolute inset-0">
-          <img 
+          <img
             src="/images/hero/heroimage.png"
-            alt="Pertunjukan Seni Indonesia" 
-            className="h-full w-full object-cover"
+            alt="Pertunjukan Seni Indonesia"
+            className="h-full w-full object-cover animate-[heroZoom_10s_ease-out] will-change-transform"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent"></div>
           <div className="absolute inset-0 bg-black/20"></div>
@@ -61,13 +81,20 @@ export default function HomePage() {
                 <span className="italic text-gold">Gending Gandari</span>
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-9 text-white/90">
-                Platform digital yang menghubungkan pecinta seni dengan pertunjukan Gending Gandari dan seni karawitan terbaik di seluruh Indonesia.
+                Platform digital yang menghubungkan pecinta seni dengan
+                pertunjukan Gending Gandari dan seni karawitan terbaik di
+                seluruh Indonesia.
               </p>
             </div>
 
             <div className="flex flex-wrap gap-4 pt-2">
               <Link to="/events">
-                <Button size="lg" className="bg-saffron hover:bg-saffron/90 text-white border-none">Jelajahi Pertunjukan</Button>
+                <Button
+                  size="lg"
+                  className="bg-saffron hover:bg-saffron/90 text-white border-none"
+                >
+                  Jelajahi Pertunjukan
+                </Button>
               </Link>
               <Link to="/tentang">
                 <Button
@@ -85,7 +112,9 @@ export default function HomePage() {
 
       <section className="border-b border-saffron/15 bg-white py-5">
         <div className="container-page flex flex-col gap-3 lg:flex-row lg:items-center">
-          <div className="text-sm font-semibold uppercase tracking-[0.18em] text-muted">Filter</div>
+          <div className="text-sm font-semibold uppercase tracking-[0.18em] text-muted">
+            Filter
+          </div>
           <div className="grid flex-1 gap-3 sm:grid-cols-3">
             <select
               value={selectedCategory}
@@ -146,5 +175,5 @@ export default function HomePage() {
         </div>
       </section>
     </div>
-  )
+  );
 }
