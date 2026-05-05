@@ -31,12 +31,13 @@ export interface Tiket {
   event_id: number
   jumlah: number
   total_harga: number
-  metode_bayar: 'transfer_bank' | 'dompet_digital'
+  metode_bayar: 'transfer_bank' | 'qris'
   status_bayar: 'menunggu' | 'lunas' | 'dibatalkan' | 'refund'
   nama_pemesan: string
   email_pemesan: string
   telepon_pemesan?: string
   catatan?: string
+  bukti_bayar?: string
   created_at: string
   event?: TicketEventSummary
 }

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { apiRequest } from '../api/client'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
@@ -24,6 +24,7 @@ interface DetailResponse {
 }
 
 export default function RiwayatTiketPage() {
+  const navigate = useNavigate()
   const [tickets, setTickets] = useState<Tiket[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -74,6 +75,23 @@ export default function RiwayatTiketPage() {
       setError(err instanceof Error ? err.message : 'Gagal membatalkan tiket')
     } finally {
       setCancelLoading(false)
+    }
+  }
+
+  const handleCetakPdf = (ticket: Tiket) => {
+    navigate('/tiket', { state: { ticket } })
+  }
+
+  const getStatusStyle = (status: string) => {
+    switch (status) {
+      case 'lunas':
+        return 'bg-cultureGreen/15 text-cultureGreen'
+      case 'menunggu':
+        return 'bg-cultureYellow/15 text-dark'
+      case 'dibatalkan':
+        return 'bg-cultureRed/10 text-cultureRed'
+      default:
+        return 'bg-dark/8 text-dark'
     }
   }
 
@@ -144,7 +162,7 @@ export default function RiwayatTiketPage() {
                       {formatRupiah(ticket.total_harga)}
                     </td>
                     <td className="px-6 py-5">
-                      <span className="inline-flex rounded-full bg-dark/8 px-3 py-1 text-sm font-semibold capitalize text-dark">
+                      <span className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold capitalize ${getStatusStyle(ticket.status_bayar)}`}>
                         {ticket.status_bayar}
                       </span>
                     </td>
@@ -157,6 +175,14 @@ export default function RiwayatTiketPage() {
                         >
                           Detail
                         </Button>
+                        {ticket.status_bayar === 'lunas' && (
+                          <Button
+                            size="sm"
+                            onClick={() => handleCetakPdf(ticket)}
+                          >
+                            Cetak Tiket
+                          </Button>
+                        )}
                         {ticket.status_bayar === 'menunggu' ? (
                           <Button
                             size="sm"
@@ -183,49 +209,75 @@ export default function RiwayatTiketPage() {
         size="lg"
       >
         {selectedTicket ? (
-          <div className="grid gap-5 rounded-[28px] bg-cream p-6 text-sm text-dark/80 md:grid-cols-2">
-            <div>
-              <div className="text-dark/50">Kode Tiket</div>
-              <div className="font-semibold text-dark">{selectedTicket.kode_tiket}</div>
-            </div>
-            <div>
-              <div className="text-dark/50">Nama Event</div>
-              <div className="font-semibold text-dark">{selectedTicket.event?.judul ?? '-'}</div>
-            </div>
-            <div>
-              <div className="text-dark/50">Tanggal</div>
-              <div className="font-semibold text-dark">
-                {selectedTicket.event?.tanggal
-                  ? formatTanggalJam(selectedTicket.event.tanggal)
-                  : '-'}
+          <div className="space-y-5">
+            <div className="grid gap-5 rounded-[28px] bg-cream p-6 text-sm text-dark/80 md:grid-cols-2">
+              <div>
+                <div className="text-dark/50">Kode Tiket</div>
+                <div className="font-semibold text-dark">{selectedTicket.kode_tiket}</div>
+              </div>
+              <div>
+                <div className="text-dark/50">Nama Event</div>
+                <div className="font-semibold text-dark">{selectedTicket.event?.judul ?? '-'}</div>
+              </div>
+              <div>
+                <div className="text-dark/50">Tanggal</div>
+                <div className="font-semibold text-dark">
+                  {selectedTicket.event?.tanggal
+                    ? formatTanggalJam(selectedTicket.event.tanggal)
+                    : '-'}
+                </div>
+              </div>
+              <div>
+                <div className="text-dark/50">Lokasi</div>
+                <div className="font-semibold text-dark">{selectedTicket.event?.lokasi ?? '-'}</div>
+              </div>
+              <div>
+                <div className="text-dark/50">Jumlah Tiket</div>
+                <div className="font-semibold text-dark">{selectedTicket.jumlah}</div>
+              </div>
+              <div>
+                <div className="text-dark/50">Total Bayar</div>
+                <div className="font-semibold text-dark">
+                  {formatRupiah(selectedTicket.total_harga)}
+                </div>
+              </div>
+              <div>
+                <div className="text-dark/50">Metode Bayar</div>
+                <div className="font-semibold text-dark">
+                  {labelMetodeBayar(selectedTicket.metode_bayar)}
+                </div>
+              </div>
+              <div>
+                <div className="text-dark/50">Status</div>
+                <span className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold capitalize ${getStatusStyle(selectedTicket.status_bayar)}`}>
+                  {selectedTicket.status_bayar}
+                </span>
               </div>
             </div>
-            <div>
-              <div className="text-dark/50">Lokasi</div>
-              <div className="font-semibold text-dark">{selectedTicket.event?.lokasi ?? '-'}</div>
-            </div>
-            <div>
-              <div className="text-dark/50">Jumlah Tiket</div>
-              <div className="font-semibold text-dark">{selectedTicket.jumlah}</div>
-            </div>
-            <div>
-              <div className="text-dark/50">Total Bayar</div>
-              <div className="font-semibold text-dark">
-                {formatRupiah(selectedTicket.total_harga)}
+
+            {selectedTicket.status_bayar === 'menunggu' && (
+              <div className="rounded-2xl border border-cultureYellow/30 bg-cultureYellow/10 p-4 text-sm text-dark">
+                ⏳ Pembayaran sedang menunggu verifikasi admin. Tiket dapat dicetak setelah pembayaran disetujui.
               </div>
-            </div>
-            <div>
-              <div className="text-dark/50">Metode Bayar</div>
-              <div className="font-semibold text-dark">
-                {labelMetodeBayar(selectedTicket.metode_bayar)}
+            )}
+
+            {selectedTicket.status_bayar === 'lunas' && (
+              <div className="rounded-2xl border border-cultureGreen/30 bg-cultureGreen/10 p-4 text-sm text-dark">
+                ✅ Pembayaran telah diverifikasi. Anda dapat mencetak tiket.
               </div>
-            </div>
-            <div>
-              <div className="text-dark/50">Status</div>
-              <div className="font-semibold capitalize text-dark">
-                {selectedTicket.status_bayar}
-              </div>
-            </div>
+            )}
+
+            {selectedTicket.status_bayar === 'lunas' && (
+              <Button
+                fullWidth
+                onClick={() => {
+                  setSelectedTicket(null)
+                  handleCetakPdf(selectedTicket)
+                }}
+              >
+                Cetak Tiket PDF
+              </Button>
+            )}
           </div>
         ) : null}
       </Modal>

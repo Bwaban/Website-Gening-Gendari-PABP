@@ -80,7 +80,8 @@ export default function BookingPage() {
         }),
       })
 
-      navigate('/tiket', {
+      // Navigate to payment page instead of e-ticket
+      navigate('/pembayaran', {
         replace: true,
         state: {
           ticket: {
@@ -138,10 +139,13 @@ export default function BookingPage() {
 
           <Card padding="none" className="overflow-hidden">
             <div
-              className="flex items-center justify-center px-6 py-8 text-6xl"
+              className="relative flex items-center justify-center px-6 py-8 text-6xl overflow-hidden"
               style={{ background: event.gradient_style || 'linear-gradient(135deg,#4A3218,#C8792A)' }}
             >
-              {event.emoji}
+              {event.gambar_url ? (
+                <img src={event.gambar_url} alt={event.judul} className="absolute inset-0 h-full w-full object-cover" />
+              ) : null}
+              {!event.gambar_url && event.emoji}
             </div>
             <div className="space-y-3 p-6">
               <div className="font-display text-2xl font-bold text-dark">{event.judul}</div>
@@ -181,8 +185,8 @@ export default function BookingPage() {
             <h2 className="font-display text-2xl font-bold text-dark">Metode Pembayaran</h2>
             <div className="grid gap-4 sm:grid-cols-2">
               {[
-                { value: 'transfer_bank', label: '🏦 Transfer Bank' },
-                { value: 'dompet_digital', label: '💳 Dompet Digital' },
+                { value: 'transfer_bank', label: '🏦 Transfer Bank', desc: 'Transfer ke rekening BCA/BRI/Mandiri' },
+                { value: 'qris', label: '📱 QRIS', desc: 'Scan QR dengan e-wallet atau m-banking' },
               ].map((method) => (
                 <label
                   key={method.value}
@@ -199,6 +203,7 @@ export default function BookingPage() {
                     onChange={() => setMetodeBayar(method.value as Tiket['metode_bayar'])}
                   />
                   <div className="font-semibold text-dark">{method.label}</div>
+                  <div className="mt-1 text-xs text-dark/50">{method.desc}</div>
                 </label>
               ))}
             </div>
@@ -212,7 +217,7 @@ export default function BookingPage() {
 
           <div className="flex flex-wrap gap-3">
             <Button type="submit" size="lg" loading={loading}>
-              Konfirmasi Pemesanan
+              Konfirmasi & Lanjutkan ke Pembayaran
             </Button>
             <Button
               type="button"

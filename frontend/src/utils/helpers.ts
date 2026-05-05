@@ -72,7 +72,7 @@ export const persenTerjual = (kuota: number, terjual: number): number =>
   kuota <= 0 ? 0 : Math.min(100, Math.round((terjual / kuota) * 100))
 
 export const labelMetodeBayar = (metode: string): string =>
-  metode === 'transfer_bank' ? '🏦 Transfer Bank' : '💳 Dompet Digital'
+  metode === 'transfer_bank' ? '🏦 Transfer Bank' : '📱 QRIS'
 
 export const toDateOnly = (isoString: string): string => {
   const date = new Date(isoString)
@@ -110,6 +110,7 @@ export const mapTicketRow = (ticket: Record<string, unknown>): Tiket => ({
   email_pemesan: String(ticket.email_pemesan ?? ''),
   telepon_pemesan: ticket.telepon_pemesan ? String(ticket.telepon_pemesan) : undefined,
   catatan: ticket.catatan ? String(ticket.catatan) : undefined,
+  bukti_bayar: ticket.bukti_bayar ? String(ticket.bukti_bayar) : undefined,
   created_at: String(ticket.created_at ?? new Date().toISOString()),
   event:
     ticket.judul && ticket.tanggal && ticket.lokasi && ticket.kota

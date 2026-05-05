@@ -217,6 +217,38 @@ const batalkanTiket = async (req, res) => {
 };
 
 /**
+ * POST /api/tiket/:kode/bukti
+ * Upload bukti pembayaran
+ */
+const uploadBuktiBayar = async (req, res) => {
+  try {
+    const { bukti_url } = req.body;
+    if (!bukti_url) {
+      return res.status(400).json({ success: false, message: 'URL bukti bayar wajib diisi.' });
+    }
+
+    const [rows] = await pool.query(
+      'SELECT * FROM tikets WHERE kode_tiket = ? AND user_id = ?',
+      [req.params.kode, req.user.id]
+    );
+
+    if (!rows.length) {
+      return res.status(404).json({ success: false, message: 'Tiket tidak ditemukan.' });
+    }
+
+    await pool.query(
+      'UPDATE tikets SET bukti_bayar = ? WHERE kode_tiket = ?',
+      [bukti_url, req.params.kode]
+    );
+
+    return res.json({ success: true, message: 'Bukti pembayaran berhasil diunggah.' });
+  } catch (err) {
+    console.error('Error upload bukti:', err);
+    return res.status(500).json({ success: false, message: 'Terjadi kesalahan server.' });
+  }
+};
+
+/**
  * GET /api/tiket/admin/semua
  * List semua tiket untuk admin
  */
@@ -315,4 +347,4 @@ const updateStatusTiket = async (req, res) => {
   }
 };
 
-module.exports = { beliTiket, riwayatTiket, detailTiket, batalkanTiket, semuaTiket, updateStatusTiket };
+module.exports = { beliTiket, riwayatTiket, detailTiket, batalkanTiket, semuaTiket, updateStatusTiket, uploadBuktiBayar };

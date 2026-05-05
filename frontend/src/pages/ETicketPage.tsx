@@ -120,15 +120,23 @@ export default function ETicketPage() {
 
         {ticket.status_bayar === 'menunggu' ? (
           <div className="rounded-[24px] border border-cultureYellow/30 bg-cultureYellow/10 p-5 text-dark">
-            ⚠️ Pembayaran berstatus <strong>menunggu</strong>. Silakan selesaikan
-            pembayaran sesuai metode yang dipilih.
+            ⏳ Pembayaran berstatus <strong>menunggu verifikasi</strong>. Tiket dapat dicetak
+            setelah pembayaran disetujui oleh admin.
+          </div>
+        ) : null}
+
+        {ticket.status_bayar === 'dibatalkan' ? (
+          <div className="rounded-[24px] border border-cultureRed/20 bg-cultureRed/5 p-5 text-cultureRed">
+            ❌ Tiket ini telah <strong>dibatalkan</strong>.
           </div>
         ) : null}
 
         <div className="flex flex-wrap justify-center gap-3 no-print">
-          <Button size="lg" onClick={() => window.print()}>
-            Cetak Tiket
-          </Button>
+          {ticket.status_bayar === 'lunas' && (
+            <Button size="lg" onClick={() => window.print()}>
+              Cetak Tiket PDF
+            </Button>
+          )}
           <Link to="/riwayat">
             <Button size="lg" variant="secondary">
               Lihat Riwayat Tiket

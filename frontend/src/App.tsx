@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage'
 import EventsPage from './pages/EventsPage'
 import EventDetailPage from './pages/EventDetailPage'
 import BookingPage from './pages/BookingPage'
+import PaymentPage from './pages/PaymentPage'
 import ETicketPage from './pages/ETicketPage'
 import BlogPage from './pages/BlogPage'
 import BlogDetailPage from './pages/BlogDetailPage'
@@ -51,6 +52,14 @@ export default function App() {
           element={
             <ProtectedRoute>
               <BookingPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/pembayaran"
+          element={
+            <ProtectedRoute>
+              <PaymentPage />
             </ProtectedRoute>
           }
         />
