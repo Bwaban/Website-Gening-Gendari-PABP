@@ -147,7 +147,61 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-cream py-12 sm:py-16">
+      {/* Penjelasan Website */}
+      <section className="bg-white py-16">
+        <div className="container-page">
+          <div className="mx-auto max-w-4xl text-center">
+            <h2 className="section-title mb-6">Tentang Website Ini</h2>
+            <p className="text-lg text-dark/80 leading-relaxed mb-6">
+              Platform Gending Gandari adalah layanan pemesanan tiket pertunjukan seni dan budaya Indonesia. Kami berdedikasi untuk melestarikan dan mempromosikan kekayaan seni tradisional, khususnya seni pertunjukan dan karawitan, dengan memberikan kemudahan akses bagi masyarakat luas.
+            </p>
+            <p className="text-lg text-dark/80 leading-relaxed">
+              Melalui platform ini, Anda dapat menemukan berbagai jadwal pertunjukan, membaca detail acara, dan membeli tiket secara online dengan mudah, cepat, dan aman. Mari bersama-sama mendukung seniman lokal dan menjaga warisan budaya bangsa.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Langkah Pembelian Tiket */}
+      <section className="bg-cream py-16 border-t border-saffron/15">
+        <div className="container-page">
+          <h2 className="section-title text-center mb-12">Cara Membeli Tiket</h2>
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                step: "1",
+                title: "Pilih Pertunjukan",
+                desc: "Telusuri daftar pertunjukan yang tersedia di beranda atau halaman acara, lalu pilih pertunjukan yang Anda minati."
+              },
+              {
+                step: "2",
+                title: "Pesan Tiket",
+                desc: "Klik tombol 'Pesan Tiket' pada halaman detail pertunjukan, dan isi jumlah tiket serta data diri Anda."
+              },
+              {
+                step: "3",
+                title: "Pembayaran",
+                desc: "Selesaikan pembayaran menggunakan metode yang tersedia sebelum batas waktu habis."
+              },
+              {
+                step: "4",
+                title: "Dapatkan E-Ticket",
+                desc: "Setelah pembayaran berhasil, E-Ticket akan tersedia di halaman 'Riwayat Tiket' Anda dan siap digunakan."
+              }
+            ].map((item, index) => (
+              <div key={index} className="relative rounded-2xl bg-white p-6 shadow-sm border border-[#ead7bc] text-center mt-6 lg:mt-0">
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 flex h-12 w-12 items-center justify-center rounded-full bg-saffron text-xl font-bold text-white shadow-md">
+                  {item.step}
+                </div>
+                <h3 className="mt-6 mb-3 font-display text-xl font-bold text-dark">{item.title}</h3>
+                <p className="text-dark/70 text-sm leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-cream py-12 sm:py-16 border-t border-saffron/15">
         <div className="container-page">
           <h2 className="section-title">Semua Pertunjukan</h2>
 
