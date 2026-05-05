@@ -41,12 +41,12 @@ export default function HomePage() {
       <section className="relative overflow-hidden bg-dark text-white">
         <div className="absolute inset-0">
           <img 
-            src="https://images.unsplash.com/photo-1604928141064-207cea73014e?auto=format&fit=crop&w=2000&q=80" 
+            src="/images/hero/heroimage.png"
             alt="Pertunjukan Seni Indonesia" 
-            className="h-full w-full object-cover opacity-40 mix-blend-overlay"
+            className="h-full w-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/80 to-transparent"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent"></div>
+          <div className="absolute inset-0 bg-black/20"></div>
         </div>
         <div className="container-page relative z-10 py-24 sm:py-36">
           <div className="max-w-3xl space-y-7">
