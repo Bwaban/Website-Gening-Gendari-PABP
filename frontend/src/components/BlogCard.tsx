@@ -8,17 +8,27 @@ interface BlogCardProps {
 
 export default function BlogCard({ article, onReadMore }: BlogCardProps) {
   return (
-    <article className="cream-panel overflow-hidden transition duration-300 hover:-translate-y-1 hover:shadow-soft">
+    <article className="group cream-panel overflow-hidden transition duration-300 hover:-translate-y-1 hover:shadow-soft">
       <button
         type="button"
         onClick={onReadMore}
         className="grid w-full text-left md:grid-cols-[190px_minmax(0,1fr)]"
       >
-        <div
-          className="flex h-40 items-center justify-center text-5xl md:h-full md:min-h-[180px]"
-          style={{ background: article.gradient || 'linear-gradient(135deg, #1C1208, #C8792A)' }}
-        >
-          <span className="opacity-70">{article.emoji || '🎵'}</span>
+        <div className="relative h-40 w-full overflow-hidden md:h-full md:min-h-[180px]">
+          {article.image ? (
+            <img 
+              src={article.image} 
+              alt={article.judul} 
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" 
+            />
+          ) : (
+            <div
+              className="flex h-full w-full items-center justify-center text-5xl"
+              style={{ background: article.gradient || 'linear-gradient(135deg, #1C1208, #C8792A)' }}
+            >
+              <span className="opacity-70">{article.emoji || '🎵'}</span>
+            </div>
+          )}
         </div>
         <div className="p-6 md:p-8">
           <div className="text-xs font-semibold uppercase tracking-[0.18em] text-saffron">

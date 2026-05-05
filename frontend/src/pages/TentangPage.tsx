@@ -40,34 +40,34 @@ const stats = [
 
 const team = [
   {
-    name: 'Dwiki Muhammad',
-    nim: '12014001',
-    role: 'Founder & CEO',
-    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    name: 'Aria Muhammad Fahlevi',
+    nim: '247006111131',
+    role: 'Member',
+    image: '/images/tim/aria.jpeg',
   },
   {
-    name: 'Maimunah Sari',
-    nim: '12014002',
-    role: 'Head of Culture',
-    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    name: 'Dwiki Muhammad Wasfi',
+    nim: '247006111136',
+    role: 'Member',
+    image: '/images/tim/dwiki.jpeg',
   },
   {
-    name: 'Rizki Pratama',
-    nim: '12014003',
-    role: 'Lead Developer',
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    name: 'Rafa Ahza Naufal',
+    nim: '247006111135',
+    role: 'Member',
+    image: '/images/tim/rafa.jpeg',
   },
   {
-    name: 'Siti Rahma',
-    nim: '12014004',
-    role: 'Community Manager',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    name: 'Raya Alfareza Alban',
+    nim: '247006111133',
+    role: 'Member',
+    image: '/images/tim/raya.jpeg',
   },
   {
-    name: 'Budi Santoso',
-    nim: '12014005',
-    role: 'Creative Director',
-    image: 'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    name: 'Zain Kautsar Ridha',
+    nim: '247006111153',
+    role: 'Member',
+    image: '/images/tim/zain.jpeg',
   },
 ]
 
@@ -91,8 +91,7 @@ export default function TentangPage() {
           'Kami hadir untuk menjadi jembatan antara para seniman Gending Gandari dan pecinta seni budaya di seluruh Indonesia.',
           'Dengan teknologi digital, kami mempermudah akses masyarakat terhadap pertunjukan seni karawitan dan budaya tradisional yang kaya makna, memastikan warisan luhur terus hidup dan berkembang dari generasi ke generasi.',
         ]}
-        emoji="🎼"
-        gradient="linear-gradient(135deg, #6A431C 0%, #C8792A 100%)"
+        image="/images/aboutimage/1.jpg"
       />
 
       <section className="bg-white">
@@ -103,8 +102,7 @@ export default function TentangPage() {
             'Kami bercita-cita menjadi platform terdepan dalam ekosistem seni pertunjukan tradisional Indonesia.',
             'Tempat di mana Gending Gandari, karawitan, dan ragam seni Nusantara lain dirayakan, dipasarkan, dan diwariskan dengan hangat melalui pengalaman digital yang tetap menghormati akar budaya.',
           ]}
-          emoji="🏺"
-          gradient="linear-gradient(135deg, #7E4B1D 0%, #D1842C 100%)"
+          image="/images/aboutimage/2.jpg"
           reverse
         />
       </section>
@@ -143,8 +141,7 @@ export default function TentangPage() {
           'SeniLokal lahir dari kekhawatiran akan semakin terpinggirkannya seni tradisional Indonesia di tengah arus modernisasi.',
           'Berawal dari komunitas kecil pecinta Gending Gandari di Bandung, kami membangun platform yang memudahkan semua orang untuk menemukan dan menikmati pertunjukan seni lokal.',
         ]}
-        emoji="🎭"
-        gradient="linear-gradient(135deg, #7B491C 0%, #C8792A 100%)"
+        image="/images/aboutimage/3.jpg"
         reverse
       />
 

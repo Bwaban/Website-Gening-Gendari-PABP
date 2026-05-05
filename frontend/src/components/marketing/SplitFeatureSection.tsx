@@ -4,8 +4,9 @@ interface SplitFeatureSectionProps {
   label: string
   title: string
   description: string[]
-  emoji: string
-  gradient: string
+  emoji?: string
+  gradient?: string
+  image?: string
   reverse?: boolean
 }
 
@@ -15,6 +16,7 @@ export default function SplitFeatureSection({
   description,
   emoji,
   gradient,
+  image,
   reverse = false,
 }: SplitFeatureSectionProps) {
   return (
@@ -38,10 +40,14 @@ export default function SplitFeatureSection({
         </div>
 
         <div
-          className="flex min-h-[280px] items-center justify-center rounded-[14px] shadow-panel sm:min-h-[360px]"
-          style={{ background: gradient }}
+          className="relative flex min-h-[280px] w-full items-center justify-center overflow-hidden rounded-[14px] shadow-panel sm:min-h-[360px]"
+          style={!image && gradient ? { background: gradient } : undefined}
         >
-          <div className="text-7xl opacity-70 sm:text-8xl">{emoji}</div>
+          {image ? (
+            <img src={image} alt={title} className="absolute inset-0 h-full w-full object-cover" />
+          ) : (
+            <div className="text-7xl opacity-70 sm:text-8xl">{emoji}</div>
+          )}
         </div>
       </div>
     </section>
