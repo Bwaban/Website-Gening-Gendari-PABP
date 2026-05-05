@@ -59,12 +59,14 @@ export default function Navbar() {
               {item.label}
             </NavLink>
           ))}
-          <NavLink
-            to={isAdmin ? '/admin/dashboard' : '/login'}
-            className={({ isActive }) => classNames('nav-link', isActive && 'nav-link-active')}
-          >
-            Admin
-          </NavLink>
+          {isAuthenticated && (
+            <NavLink
+              to="/profil"
+              className={({ isActive }) => classNames('nav-link', isActive && 'nav-link-active')}
+            >
+              Profil Akun
+            </NavLink>
+          )}
         </div>
 
         <div className="hidden items-center gap-3 lg:flex">
@@ -128,18 +130,20 @@ export default function Navbar() {
               </NavLink>
             ))}
 
-            <NavLink
-              to={isAdmin ? '/admin/dashboard' : '/login'}
-              className={({ isActive }) =>
-                classNames(
-                  'flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-dark transition hover:bg-white',
-                  isActive && 'bg-white text-saffron'
-                )
-              }
-            >
-              <LayoutDashboard className="h-4 w-4" />
-              Admin
-            </NavLink>
+            {isAuthenticated && (
+              <NavLink
+                to="/profil"
+                className={({ isActive }) =>
+                  classNames(
+                    'flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-dark transition hover:bg-white',
+                    isActive && 'bg-white text-saffron'
+                  )
+                }
+              >
+                <LayoutDashboard className="h-4 w-4" />
+                Profil Akun
+              </NavLink>
+            )}
 
             {!isAuthenticated ? (
               <div className="grid gap-3 pt-2">

@@ -16,6 +16,7 @@ import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import RiwayatTiketPage from './pages/RiwayatTiketPage'
 import NotFoundPage from './pages/NotFoundPage'
+import ProfilPage from './pages/ProfilPage'
 import AdminLayout from './pages/admin/AdminLayout'
 import AdminDashboardPage from './pages/admin/AdminDashboardPage'
 import AdminEventsPage from './pages/admin/AdminEventsPage'
@@ -76,6 +77,14 @@ export default function App() {
           element={
             <ProtectedRoute>
               <RiwayatTiketPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profil"
+          element={
+            <ProtectedRoute>
+              <ProfilPage />
             </ProtectedRoute>
           }
         />

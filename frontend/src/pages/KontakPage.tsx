@@ -17,7 +17,6 @@ export default function KontakPage() {
           </>
         }
         description="Tim kami siap menjawab pertanyaan dan membantu Anda dalam setiap langkah."
-        variant="pink"
       />
 
       <section className="py-12 sm:py-16">
