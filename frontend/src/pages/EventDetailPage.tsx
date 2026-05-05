@@ -1,4 +1,4 @@
-import { CalendarDays, Info, MapPin, Minus, Plus } from 'lucide-react'
+import { BadgeCheck, CalendarDays, Info, MapPin, Minus, Music4, Plus } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { apiRequest } from '../api/client'
@@ -157,34 +157,49 @@ export default function EventDetailPage() {
               </div>
 
               {activeTab === 'deskripsi' ? (
-                <div className="font-body text-base leading-8 text-dark/75">
+                <div className="whitespace-pre-line font-body text-base leading-relaxed text-dark/75">
                   {event.deskripsi}
                 </div>
               ) : (
-                <div className="grid gap-5 rounded-[28px] bg-cream p-6 text-sm text-dark/80 sm:grid-cols-2">
-                  <div className="space-y-1">
-                    <div className="text-dark/50">Organizer</div>
-                    <div className="font-semibold text-dark">SeniLokal</div>
+                <div className="grid gap-6 rounded-[28px] bg-cream p-8 text-sm text-dark/80 sm:grid-cols-2">
+                  <div className="flex items-center gap-4 border-b border-dark/5 pb-4 sm:border-none sm:pb-0">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-saffron/10 text-saffron">
+                      <Music4 className="h-5 w-5" />
+                    </div>
+                    <div className="space-y-1">
+                      <div className="text-[10px] font-bold uppercase tracking-widest text-dark/40">Penyelenggara</div>
+                      <div className="font-semibold text-dark">SeniLokal & BudayaRI</div>
+                    </div>
                   </div>
-                  <div className="space-y-1">
-                    <div className="text-dark/50">Tanggal & Waktu</div>
-                    <div className="font-semibold text-dark">{formatTanggalJam(event.tanggal)}</div>
+                  <div className="flex items-center gap-4 border-b border-dark/5 pb-4 sm:border-none sm:pb-0">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-saffron/10 text-saffron">
+                      <CalendarDays className="h-5 w-5" />
+                    </div>
+                    <div className="space-y-1">
+                      <div className="text-[10px] font-bold uppercase tracking-widest text-dark/40">Tanggal & Waktu</div>
+                      <div className="font-semibold text-dark">{formatTanggalJam(event.tanggal)}</div>
+                    </div>
                   </div>
-                  <div className="space-y-1">
-                    <div className="text-dark/50">Kota</div>
-                    <div className="font-semibold text-dark">{event.kota}</div>
+                  <div className="flex items-center gap-4 border-b border-dark/5 pb-4 sm:border-none sm:pb-0">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-saffron/10 text-saffron">
+                      <MapPin className="h-5 w-5" />
+                    </div>
+                    <div className="space-y-1">
+                      <div className="text-[10px] font-bold uppercase tracking-widest text-dark/40">Kota & Lokasi</div>
+                      <div className="font-semibold text-dark">{event.kota}, {event.lokasi}</div>
+                    </div>
                   </div>
-                  <div className="space-y-1">
-                    <div className="text-dark/50">Lokasi</div>
-                    <div className="font-semibold text-dark">{event.lokasi}</div>
+                  <div className="flex items-center gap-4 border-b border-dark/5 pb-4 sm:border-none sm:pb-0">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-saffron/10 text-saffron">
+                      <BadgeCheck className="h-5 w-5" />
+                    </div>
+                    <div className="space-y-1">
+                      <div className="text-[10px] font-bold uppercase tracking-widest text-dark/40">Sisa Kuota</div>
+                      <div className="font-semibold text-dark">{remainingSeats} dari {event.kuota} Tiket Tersedia</div>
+                    </div>
                   </div>
-                  <div className="space-y-1">
-                    <div className="text-dark/50">Kuota Tersisa</div>
-                    <div className="font-semibold text-dark">{remainingSeats} tiket</div>
-                  </div>
-                  <div className="space-y-1">
-                    <div className="text-dark/50">Kategori</div>
-                    <div className="font-semibold text-dark">{event.kategori}</div>
+                  <div className="col-span-full mt-2 rounded-2xl bg-white/50 p-4 text-xs italic text-dark/50">
+                    * Harap tunjukkan e-tiket yang dikirimkan ke email Anda saat memasuki lokasi acara.
                   </div>
                 </div>
               )}
