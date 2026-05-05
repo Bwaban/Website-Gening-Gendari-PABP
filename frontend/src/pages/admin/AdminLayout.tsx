@@ -1,4 +1,4 @@
-import { LayoutDashboard, LogOut, Music4 } from 'lucide-react'
+import { LayoutDashboard, LogOut, Music4, ShoppingCart } from 'lucide-react'
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 import Badge from '../../components/ui/Badge'
@@ -8,12 +8,14 @@ import { classNames } from '../../utils/helpers'
 const links = [
   { to: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/admin/events', label: 'Pertunjukan', icon: Music4 },
+  { to: '/admin/tickets', label: 'Pesanan Tiket', icon: ShoppingCart },
 ]
 
 const pageTitleMap: Record<string, string> = {
   '/admin/dashboard': 'Dashboard Admin',
   '/admin/events': 'Manajemen Pertunjukan',
   '/admin/events/create': 'Tambah Pertunjukan',
+  '/admin/tickets': 'Daftar Pesanan Tiket',
 }
 
 export default function AdminLayout() {

@@ -19,6 +19,7 @@ import AdminLayout from './pages/admin/AdminLayout'
 import AdminDashboardPage from './pages/admin/AdminDashboardPage'
 import AdminEventsPage from './pages/admin/AdminEventsPage'
 import AdminEventFormPage from './pages/admin/AdminEventFormPage'
+import AdminTicketsPage from './pages/admin/AdminTicketsPage'
 
 function SiteLayout() {
   return (
@@ -84,6 +85,7 @@ export default function App() {
         <Route path="events" element={<AdminEventsPage />} />
         <Route path="events/create" element={<AdminEventFormPage />} />
         <Route path="events/edit/:id" element={<AdminEventFormPage />} />
+        <Route path="tickets" element={<AdminTicketsPage />} />
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />

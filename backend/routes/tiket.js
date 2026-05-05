@@ -1,8 +1,8 @@
 const express = require('express');
 const { body  } = require('express-validator');
 const router  = express.Router();
-const { beliTiket, riwayatTiket, detailTiket, batalkanTiket } = require('../controllers/tiketController');
-const { authenticate } = require('../middleware/auth');
+const { beliTiket, riwayatTiket, detailTiket, batalkanTiket, semuaTiket, updateStatusTiket } = require('../controllers/tiketController');
+const { authenticate, adminOnly } = require('../middleware/auth');
 
 // Semua route tiket wajib login
 router.use(authenticate);
@@ -21,5 +21,9 @@ router.post('/beli',          validasiBeli, beliTiket);
 router.get('/riwayat',                     riwayatTiket);
 router.get('/:kode',                        detailTiket);
 router.post('/:kode/batalkan',              batalkanTiket);
+
+// Admin Only
+router.get('/admin/semua',           adminOnly, semuaTiket);
+router.patch('/admin/:id/status',    adminOnly, updateStatusTiket);
 
 module.exports = router;

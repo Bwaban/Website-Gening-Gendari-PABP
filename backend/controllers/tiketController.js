@@ -216,4 +216,103 @@ const batalkanTiket = async (req, res) => {
   }
 };
 
-module.exports = { beliTiket, riwayatTiket, detailTiket, batalkanTiket };
+/**
+ * GET /api/tiket/admin/semua
+ * List semua tiket untuk admin
+ */
+const semuaTiket = async (req, res) => {
+  try {
+    const [rows] = await pool.query(
+      `SELECT t.*, e.judul, e.kategori, e.tanggal, e.lokasi, e.kota, e.emoji
+       FROM tikets t
+       JOIN events e ON t.event_id = e.id
+       ORDER BY t.created_at DESC`
+    );
+    return res.json({ success: true, tikets: rows });
+  } catch (err) {
+    console.error('Error semua tiket:', err);
+    return res.status(500).json({ success: false, message: 'Terjadi kesalahan server.' });
+  }
+};
+
+/**
+ * PATCH /api/tiket/admin/:id/status
+ * Update status bayar oleh admin (Lunas / Batalkan)
+ */
+const updateStatusTiket = async (req, res) => {
+  const { status } = req.body; // 'lunas' atau 'dibatalkan'
+  const { id } = req.params;
+
+  if (!['lunas', 'dibatalkan'].includes(status)) {
+    return res.status(400).json({ success: false, message: 'Status tidak valid.' });
+  }
+
+  const conn = await pool.getConnection();
+  try {
+    await conn.beginTransaction();
+
+    const [rows] = await conn.query(
+      'SELECT * FROM tikets WHERE id = ? FOR UPDATE',
+      [id]
+    );
+
+    if (!rows.length) {
+      await conn.rollback();
+      return res.status(404).json({ success: false, message: 'Tiket tidak ditemukan.' });
+    }
+
+    const tiket = rows[0];
+
+    // Jika status diubah dari 'menunggu' ke 'dibatalkan', kembalikan stok
+    if (tiket.status_bayar === 'menunggu' && status === 'dibatalkan') {
+      await conn.query(
+        `UPDATE events
+         SET tiket_terjual = tiket_terjual - ?,
+             status = CASE
+               WHEN (kuota - (tiket_terjual - ?)) = 0 THEN 'habis'
+               WHEN (kuota - (tiket_terjual - ?)) <= kuota * 0.1 THEN 'terbatas'
+               ELSE 'tersedia'
+             END
+         WHERE id = ?`,
+        [tiket.jumlah, tiket.jumlah, tiket.jumlah, tiket.event_id]
+      );
+    } 
+    // Jika status diubah dari 'dibatalkan' ke 'lunas' (mungkin admin salah tekan), kurangi stok lagi jika masih ada
+    else if (tiket.status_bayar === 'dibatalkan' && status === 'lunas') {
+      const [events] = await conn.query('SELECT kuota, tiket_terjual FROM events WHERE id = ? FOR UPDATE', [tiket.event_id]);
+      const event = events[0];
+      if (event.tiket_terjual + tiket.jumlah > event.kuota) {
+        await conn.rollback();
+        return res.status(400).json({ success: false, message: 'Gagal mengaktifkan kembali tiket. Kuota event sudah penuh.' });
+      }
+
+      await conn.query(
+        `UPDATE events
+         SET tiket_terjual = tiket_terjual + ?,
+             status = CASE
+               WHEN (kuota - (tiket_terjual + ?)) = 0 THEN 'habis'
+               WHEN (kuota - (tiket_terjual + ?)) <= kuota * 0.1 THEN 'terbatas'
+               ELSE 'tersedia'
+             END
+         WHERE id = ?`,
+        [tiket.jumlah, tiket.jumlah, tiket.jumlah, tiket.event_id]
+      );
+    }
+
+    await conn.query(
+      'UPDATE tikets SET status_bayar = ? WHERE id = ?',
+      [status, id]
+    );
+
+    await conn.commit();
+    return res.json({ success: true, message: `Status tiket berhasil diubah menjadi ${status}.` });
+  } catch (err) {
+    await conn.rollback();
+    console.error('Error update status tiket:', err);
+    return res.status(500).json({ success: false, message: 'Terjadi kesalahan server.' });
+  } finally {
+    conn.release();
+  }
+};
+
+module.exports = { beliTiket, riwayatTiket, detailTiket, batalkanTiket, semuaTiket, updateStatusTiket };
