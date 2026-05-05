@@ -16,7 +16,19 @@ export default function EventCard({ event }: { event: Event }) {
         className="event-image-overlay relative flex h-48 w-full items-center justify-center overflow-hidden transition duration-500 group-hover:scale-105"
         style={{ background: event.gradient_style || theme.gradient }}
       >
-        <span className="relative z-10 text-6xl opacity-70 drop-shadow-xl transition duration-500 group-hover:scale-110 group-hover:opacity-100">{event.emoji || theme.emoji}</span>
+        {event.gambar_url ? (
+          <img 
+            src={event.gambar_url} 
+            alt={event.judul}
+            className="absolute inset-0 h-full w-full object-cover transition duration-500"
+            onError={(e) => {
+              (e.target as HTMLImageElement).style.display = 'none';
+            }}
+          />
+        ) : null}
+        <span className="relative z-10 text-6xl opacity-70 drop-shadow-xl transition duration-500 group-hover:scale-110 group-hover:opacity-100">
+          {!event.gambar_url && (event.emoji || theme.emoji)}
+        </span>
       </div>
 
       <div className="flex flex-1 flex-col p-6 z-20 bg-white">

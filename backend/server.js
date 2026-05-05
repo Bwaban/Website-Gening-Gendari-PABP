@@ -8,6 +8,7 @@ const authRoutes   = require('./routes/auth');
 const tiketRoutes  = require('./routes/tiket');
 const kontakRoutes = require('./routes/kontak');
 const eventRoutes  = require('./routes/events');
+const uploadRoutes = require('./routes/upload');
 
 const app  = express();
 const PORT = process.env.PORT || 3000;
@@ -40,6 +41,7 @@ app.use('/api/auth',   authRoutes);
 app.use('/api/tiket',  tiketRoutes);
 app.use('/api/kontak', kontakRoutes);
 app.use('/api/events', eventRoutes);
+app.use('/api/upload', uploadRoutes);
 
 // Health check
 app.get('/api/health', (_req, res) => {

@@ -5,27 +5,33 @@ const EVENT_THEME_MAP: Record<
   {
     gradient: string
     emoji: string
+    color: string
   }
 > = {
   'Gending Gandari': {
     gradient: 'linear-gradient(135deg, #6A431C 0%, #D1842C 100%)',
     emoji: '🎼',
+    color: '#D1842C',
   },
   Karawitan: {
     gradient: 'linear-gradient(135deg, #1E5A36 0%, #2D7A4A 100%)',
     emoji: '🏺',
+    color: '#2D7A4A',
   },
   Wayang: {
     gradient: 'linear-gradient(135deg, #4A235A 0%, #6C2E8F 100%)',
     emoji: '🎭',
+    color: '#6C2E8F',
   },
   'Tari Tradisional': {
     gradient: 'linear-gradient(135deg, #4A4A10 0%, #7A7A1F 100%)',
     emoji: '🎵',
+    color: '#7A7A1F',
   },
   'Budaya Lokal': {
     gradient: 'linear-gradient(135deg, #6F2B16 0%, #9B431F 100%)',
     emoji: '🥁',
+    color: '#9B431F',
   },
 }
 
@@ -89,6 +95,7 @@ export const getEventTheme = (category: string) =>
   EVENT_THEME_MAP[category] ?? {
     gradient: 'linear-gradient(135deg, #4A3218 0%, #C8792A 100%)',
     emoji: '🎶',
+    color: '#C8792A',
   }
 
 export const mapTicketRow = (ticket: Record<string, unknown>): Tiket => ({

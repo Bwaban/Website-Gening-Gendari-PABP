@@ -83,6 +83,7 @@ const eventPayload = (body) => ({
   status: body.status || 'tersedia',
   gradient_style: body.gradient_style || null,
   emoji: body.emoji || null,
+  gambar_url: body.gambar_url || null,
 });
 
 /**
@@ -100,8 +101,8 @@ const tambahEvent = async (req, res) => {
   try {
     const [result] = await pool.query(
       `INSERT INTO events
-       (judul, kategori, deskripsi, tanggal, kota, lokasi, harga, kuota, tiket_terjual, status, gradient_style, emoji)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       (judul, kategori, deskripsi, tanggal, kota, lokasi, harga, kuota, tiket_terjual, status, gradient_style, emoji, gambar_url)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         data.judul,
         data.kategori,
@@ -115,6 +116,7 @@ const tambahEvent = async (req, res) => {
         data.status,
         data.gradient_style,
         data.emoji,
+        data.gambar_url,
       ]
     );
 
@@ -142,7 +144,7 @@ const updateEvent = async (req, res) => {
     const [result] = await pool.query(
       `UPDATE events SET
        judul = ?, kategori = ?, deskripsi = ?, tanggal = ?, kota = ?, lokasi = ?,
-       harga = ?, kuota = ?, tiket_terjual = ?, status = ?, gradient_style = ?, emoji = ?
+       harga = ?, kuota = ?, tiket_terjual = ?, status = ?, gradient_style = ?, emoji = ?, gambar_url = ?
        WHERE id = ?`,
       [
         data.judul,
@@ -157,6 +159,7 @@ const updateEvent = async (req, res) => {
         data.status,
         data.gradient_style,
         data.emoji,
+        data.gambar_url,
         req.params.id,
       ]
     );

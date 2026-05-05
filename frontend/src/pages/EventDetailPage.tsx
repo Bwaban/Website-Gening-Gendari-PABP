@@ -96,15 +96,23 @@ export default function EventDetailPage() {
         <div className="space-y-8">
           <Card padding="none" className="overflow-hidden">
             <div
-              className="flex min-h-[300px] items-center justify-center p-10 text-center"
+              className="relative flex min-h-[400px] items-center justify-center overflow-hidden"
               style={{ background: event.gradient_style || 'linear-gradient(135deg,#4A3218,#C8792A)' }}
             >
-              <div>
-                <div className="mb-6 text-8xl">{event.emoji}</div>
-                <div className="text-sm uppercase tracking-[0.4em] text-white/80">
-                  SeniLokal Featured
+              {event.gambar_url ? (
+                <img 
+                  src={event.gambar_url} 
+                  alt={event.judul}
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              ) : (
+                <div>
+                  <div className="mb-6 text-8xl text-center">{event.emoji}</div>
+                  <div className="text-sm uppercase tracking-[0.4em] text-white/80 text-center">
+                    SeniLokal Featured
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             <div className="space-y-6 p-8">

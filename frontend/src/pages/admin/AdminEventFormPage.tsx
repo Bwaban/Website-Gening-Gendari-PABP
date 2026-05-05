@@ -27,6 +27,7 @@ const initialForm: EventFormData = {
   status: 'tersedia',
   gradient_style: 'linear-gradient(135deg,#4A3218,#C8792A)',
   emoji: '🎼',
+  gambar_url: '',
 }
 
 export default function AdminEventFormPage() {
@@ -36,7 +37,9 @@ export default function AdminEventFormPage() {
   const [form, setForm] = useState<EventFormData>(initialForm)
   const [loading, setLoading] = useState(isEdit)
   const [saving, setSaving] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const [error, setError] = useState('')
+  const [uploadProgress, setUploadProgress] = useState(0)
 
   useEffect(() => {
     if (!isEdit || !id) return
@@ -60,6 +63,7 @@ export default function AdminEventFormPage() {
           status: event.status,
           gradient_style: event.gradient_style,
           emoji: event.emoji,
+          gambar_url: event.gambar_url || '',
         })
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Gagal mengambil data event')
@@ -73,6 +77,43 @@ export default function AdminEventFormPage() {
 
   const updateField = <K extends keyof EventFormData>(key: K, value: EventFormData[K]) => {
     setForm((prev) => ({ ...prev, [key]: value }))
+  }
+
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    setUploading(true)
+    setError('')
+
+    try {
+      const formData = new FormData()
+      formData.append('image', file)
+
+      // Karena apiRequest belum mendukung FormData secara eksplisit dalam pembentukan header JSON,
+      // kita gunakan fetch manual atau sesuaikan apiRequest.
+      // Kita gunakan fetch di sini untuk upload multipart.
+      const token = localStorage.getItem('senilokal_token')
+      const response = await fetch('/api/upload/event-image', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formData
+      })
+
+      const data = await response.json()
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || 'Gagal mengunggah gambar')
+      }
+
+      updateField('gambar_url', data.imageUrl)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Gagal mengunggah gambar')
+    } finally {
+      setUploading(false)
+    }
   }
 
   const previewGradient = useMemo(
@@ -232,20 +273,79 @@ export default function AdminEventFormPage() {
               placeholder="linear-gradient(135deg,#4A3218,#C8792A)"
             />
 
-            <div className="grid gap-5 md:grid-cols-[120px_1fr] md:items-end">
-              <Input
-                label="Emoji"
-                value={form.emoji}
-                onChange={(event) => updateField('emoji', event.target.value)}
-                placeholder="🎼"
-              />
-              <div className="space-y-2">
-                <span className="text-sm font-semibold text-dark">Preview Gradient</span>
-                <div
-                  className="flex h-[54px] items-center justify-center rounded-2xl text-2xl shadow-inner"
-                  style={{ background: previewGradient }}
-                >
-                  {form.emoji || '🎼'}
+            <div className="space-y-4 md:col-span-2">
+              <div className="flex flex-col gap-6 rounded-3xl border border-[#e8d5b5] bg-cream/30 p-6">
+                <div className="flex flex-col gap-6 lg:flex-row">
+                  {/* Preview Area */}
+                  <div className="w-full lg:w-1/2">
+                    <span className="mb-2 block text-sm font-semibold text-dark">Pratinjau Media</span>
+                    <div
+                      className="relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-2xl border border-[#e8d5b5] bg-white shadow-inner"
+                      style={{ background: !form.gambar_url ? previewGradient : 'white' }}
+                    >
+                      {form.gambar_url ? (
+                        <img
+                          src={form.gambar_url}
+                          className="absolute inset-0 h-full w-full object-cover"
+                          alt="Preview"
+                        />
+                      ) : (
+                        <span className="text-7xl drop-shadow-lg">{form.emoji || '🎼'}</span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Controls Area */}
+                  <div className="flex flex-1 flex-col gap-5">
+                    <div className="space-y-2">
+                      <span className="text-sm font-semibold text-dark">Upload Gambar</span>
+                      <div className="flex items-center gap-3">
+                        <div className="relative flex-1">
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFileChange}
+                            className="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0"
+                            disabled={uploading}
+                          />
+                          <div
+                            className={`flex w-full items-center justify-center rounded-xl border-2 border-dashed border-[#e8d5b5] bg-white px-4 py-3 text-sm transition ${
+                              uploading ? 'opacity-50' : 'hover:border-saffron hover:bg-saffron/5'
+                            }`}
+                          >
+                            <span className="font-medium text-dark/60">
+                              {uploading ? 'Mengunggah...' : 'Pilih File Gambar'}
+                            </span>
+                          </div>
+                        </div>
+                        {form.gambar_url && (
+                          <button
+                            type="button"
+                            onClick={() => updateField('gambar_url', '')}
+                            className="rounded-xl bg-red-50 px-3 py-3 text-xs font-bold text-red-500 transition hover:bg-red-100"
+                          >
+                            Hapus
+                          </button>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Input
+                        label="Atau Gunakan Emoji (jika tidak ada gambar)"
+                        value={form.emoji}
+                        onChange={(event) => updateField('emoji', event.target.value)}
+                        placeholder="🎼"
+                      />
+                    </div>
+                    
+                    {form.gambar_url && (
+                      <div className="rounded-lg bg-white/50 p-3 text-[10px] text-dark/50">
+                        <span className="font-bold uppercase tracking-wider">File Path:</span>
+                        <div className="mt-1 truncate font-mono">{form.gambar_url}</div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

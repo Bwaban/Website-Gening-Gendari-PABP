@@ -12,6 +12,7 @@ export interface Event {
   status: 'tersedia' | 'terbatas' | 'habis'
   gradient_style: string
   emoji: string
+  gambar_url?: string
   created_at?: string
 }
 
@@ -97,6 +98,7 @@ export interface EventFormData {
   status: Event['status']
   gradient_style: string
   emoji: string
+  gambar_url?: string
 }
 
 export interface BlogArticle {
