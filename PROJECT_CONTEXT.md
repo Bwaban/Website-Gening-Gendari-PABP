@@ -1,116 +1,159 @@
-# 🧠 PROJECT CONTEXT
+# 🧠 PROJECT CONTEXT: SeniLokal (Gening Gendari)
+
+Dokumentasi ini dibuat untuk memberikan gambaran menyeluruh mengenai proyek **SeniLokal**, sebuah platform digital untuk pelestarian dan manajemen acara seni budaya Indonesia. File ini dirancang sebagai referensi utama bagi AI atau pengembang baru untuk memahami sistem tanpa harus membaca seluruh kode sumber.
+
+---
 
 ## 1. Informasi Umum
-- **Nama Project**: SeniLokal (Gening Gendari / Gending Gandari)
-- **Deskripsi Project**: SeniLokal adalah platform web modern yang didedikasikan untuk pelestarian dan promosi seni budaya Indonesia. Domain utamanya adalah e-commerce seni budaya yang memungkinkan pengguna untuk menjelajahi berbagai pertunjukan seni tradisonal dan modern di Indonesia.
-- **Tujuan Utama**: Mempermudah akses masyarakat terhadap pertunjukan seni budaya melalui sistem digitalisasi reservasi tiket (e-ticketing). Aplikasi ini menyelesaikan masalah sulitnya mendapatkan informasi pertunjukan seni yang tersebar dan proses pemesanan tiket yang masih manual.
-- **Target User**: Pecinta seni budaya, turis (domestik & internasional), dan komunitas praktisi seni di Indonesia.
+- **Nama Project**: SeniLokal (Gening Gendari)
+- **Deskripsi Project**: Platform web *end-to-end* yang berfokus pada promosi, edukasi, dan reservasi tiket pertunjukan seni budaya Indonesia, khususnya seni "Gending Gandari" dan tradisi Sunda/Jawa lainnya.
+- **Tujuan Utama**: 
+  - Mendigitalisasi proses pemesanan tiket pertunjukan seni lokal.
+  - Memberikan platform bagi seniman untuk menjangkau audiens lebih luas.
+  - Menyediakan informasi terpusat mengenai jadwal dan detail acara kebudayaan.
+- **Target User**: 
+  - Penikmat seni budaya (Masyarakat umum).
+  - Wisatawan yang mencari hiburan autentik lokal.
+  - Admin/Penyelenggara acara untuk mengelola inventaris tiket.
 - **Fitur Utama**:
-    - **E-Ticketing System**: Memungkinkan pengguna memilih kursi, memesan tiket, dan mendapatkan E-Ticket secara instan.
-    - **Event Management**: Katalog pertunjukan seni lengkap dengan detail lokasi, waktu, dan deskripsi mendalam.
-    - **Admin Dashboard**: Panel khusus pengelola untuk menambah, mengubah, atau menghapus data pertunjukan (CRUD Events).
-    - **Blog & Literasi**: Bagian khusus artikel yang memberikan edukasi mengenai sejarah dan filosofi di balik pertunjukan seni yang ada.
-    - **Auth & Profile**: Sistem pendaftaran akun dan riwayat tiket untuk melacak pertunjukan yang telah diikuti.
+  - **Manajemen Event**: Eksplorasi daftar pertunjukan dengan filter kategori (Wayang, Tari, Gending, dll).
+  - **Sistem Booking**: Alur pemesanan tiket mulai dari pemilihan jumlah hingga pengisian data pemesan.
+  - **Payment & E-Ticket**: Proses konfirmasi pembayaran (unggah bukti) dan pembuatan E-Ticket otomatis dalam format PDF.
+  - **Blog/Edukasi**: Artikel mengenai sejarah dan nilai-nilai seni budaya.
+  - **Admin Dashboard**: Panel kontrol untuk mengelola event, memantau penjualan tiket, dan merespons pesan masuk.
+
+---
 
 ## 2. Teknologi yang Digunakan
-- **Bahasa Pemrograman**: TypeScript (Frontend) & JavaScript (Backend).
-- **Framework Utama**: 
-    - **Frontend**: React.js (dengan Vite sebagai build tool) untuk UI yang responsif dan cepat.
-    - **Backend**: Node.js dengan framework Express.js untuk menangani RESTful API.
-- **Library / Packages Penting**:
-    - **Axios**: Digunakan di frontend untuk melakukan request HTTP ke backend.
-    - **Lucide React**: Library icon modern untuk mempercantik UI.
-    - **JWT (jsonwebtoken)**: Untuk keamanan autentikasi berbasis token.
-    - **Bcryptjs**: Untuk enkripsi password pengguna di database.
-    - **MySQL2**: Driver untuk menghubungkan backend Node.js dengan database MySQL.
-    - **Nodemailer**: Digunakan untuk pengiriman notifikasi atau tiket melalui email (asumsi berdasarkan package.json).
-- **Design System / UI Framework**: 
-    - **Tailwind CSS**: Framework CSS utility-first yang digunakan untuk styling yang konsisten dan premium.
-    - **Custom Design System**: Menggunakan palet warna khusus (Saffron, Gold, Cream, Dark) yang mencerminkan estetika budaya.
-- **Tools Tambahan**: Nodemon (development), PostCSS, Autoprefixer.
+### Frontend
+- **React (v18)**: Framework UI utama dengan pendekatan fungsional dan Hooks.
+- **TypeScript**: Digunakan di seluruh codebase untuk *type-safety*.
+- **Vite**: Alat *build* dan *bundler* yang sangat cepat untuk pengembangan.
+- **Tailwind CSS**: Framework CSS untuk styling responsif dengan sistem desain berbasis utility.
+- **React Router Dom**: Library navigasi untuk aplikasi satu halaman (SPA).
+- **Axios**: Klien HTTP untuk berkomunikasi dengan Backend API.
+- **jsPDF & html2canvas**: Library untuk menghasilkan dokumen PDF (E-Ticket) secara dinamis dari elemen HTML.
+
+### Backend
+- **Node.js & Express**: Lingkungan runtime dan framework server minimalis.
+- **MySQL (mysql2)**: Database relasional untuk menyimpan data user, event, dan transaksi.
+- **JWT (JSON Web Token)**: Mekanisme otentikasi stateless antara frontend dan backend.
+- **Bcryptjs**: Library untuk enkripsi password sebelum disimpan ke database.
+- **Multer**: Middleware untuk menangani unggahan file (gambar event & bukti bayar).
+- **Nodemailer**: Digunakan untuk pengiriman notifikasi email (jika dikonfigurasi).
+
+---
 
 ## 3. Arsitektur & Alur Sistem
-- **Arsitektur**: Menggunakan pola **Client-Server Separated Architecture**. Frontend dan Backend berjalan secara terpisah namun terhubung melalui API.
-- **Alur Data End-to-End**:
-    1. **User Interaction**: User berinteraksi dengan UI React (misal: klik tombol "Beli Tiket").
-    2. **API Request**: Frontend mengirimkan request via Axios ke endpoint tertentu di Express (misal: `POST /api/tiket/booking`).
-    3. **Controller Logic**: Backend (Controller) menerima request, melakukan validasi data (express-validator).
-    4. **Database Operation**: Controller berinteraksi dengan database MySQL untuk menyimpan atau mengambil data.
-    5. **Response**: Backend mengirimkan response JSON kembali ke Frontend.
-    6. **UI Update**: React mengupdate state lokal dan menampilkan feedback ke user (misal: menampilkan E-Ticket).
-- **Authentication**: Menggunakan **JWT Strategy**. Saat login berhasil, backend mengirimkan token yang kemudian disimpan di `localStorage` frontend untuk digunakan dalam header `Authorization` pada request berikutnya.
-- **State Management**: Menggunakan **React Hooks (Context API)** untuk mengelola state global seperti status login pengguna (`useAuth`).
+### Arsitektur
+Sistem menggunakan arsitektur **Client-Server (REST API)** yang terpisah:
+- **Frontend**: Single Page Application (SPA) yang berjalan di client.
+- **Backend**: RESTful API yang melayani data dalam format JSON.
+- **Database**: Skema relasional MySQL.
+
+### Alur Data End-to-End
+1. **User Interaction**: User memilih event di Frontend (React).
+2. **API Request**: Frontend mengirimkan request ke Backend melalui Axios (misal: `POST /api/tiket/booking`).
+3. **Controller & Business Logic**: Backend menerima request, memvalidasi input (express-validator), dan mengecek logika bisnis (kuota tiket).
+4. **Database Interaction**: Backend melakukan query ke MySQL untuk menyimpan data pesanan.
+5. **Response**: Backend mengembalikan status sukses dan data terkait ke Frontend.
+6. **UI Update**: Frontend memperbarui state dan mengarahkan user ke halaman berikutnya (misal: Halaman Pembayaran).
+
+### Keamanan & State Management
+- **Authentication**: Menggunakan JWT yang disimpan di `localStorage` atau `cookie`. Backend memverifikasi token di setiap *protected route* melalui middleware.
+- **Authorization**: Terdapat pemisahan role antara `user` dan `admin`.
+- **State Management**: Menggunakan **React Context API** (`AuthContext`) untuk mengelola status login user secara global di seluruh aplikasi.
+
+---
 
 ## 4. Struktur Folder & Penjelasan Detail
-### Root Structure
+
+### Struktur Root
 ```text
 .
-├── backend/            # Source code server (API)
-├── frontend/           # Source code client (React)
-└── README.md           # Dokumentasi instalasi awal
+├── backend/                # Source code server (Express)
+├── frontend/               # Source code client (React)
+├── node_modules/           # Dependencies
+└── package.json            # Scripts & global info
 ```
 
-### Frontend Structure (`frontend/src/`)
-- `api/`: Berisi konfigurasi Axios dan fungsi-fungsi pemanggilan API.
-- `assets/`: File statis seperti gambar, logo, dan font.
-- `components/`: Komponen UI yang reusable.
-    - `layout/`: Navbar, Footer, Sidebar.
-    - `ui/`: Komponen dasar seperti Button, Input, Card.
-- `context/`: Implementasi React Context (misal: AuthContext).
-- `hooks/`: Custom hooks untuk logika yang reusable (misal: `useAuth`).
-- `pages/`: Komponen halaman utama (HomePage, LoginPage, dll).
-- `types/`: Definisi interface TypeScript.
-- `utils/`: Fungsi helper (format tanggal, manipulasi string).
+### Detail Frontend (`frontend/src/`)
+- `api/`: Definisi endpoint dan konfigurasi Axios.
+- `assets/`: File statis seperti logo, gambar default, dan icon.
+- `components/`: Komponen UI yang dapat digunakan kembali (Navbar, Footer, Card, Modal).
+- `context/`: Provider global (terutama `AuthContext.tsx`).
+- `hooks/`: Custom hooks untuk logika yang bisa digunakan ulang.
+- `pages/`: Halaman utama aplikasi (Home, Login, Register, dll).
+  - `admin/`: Sub-folder khusus halaman dashboard admin.
+- `types/`: Definisi Interface TypeScript untuk standarisasi data (User, Event, Ticket).
+- `utils/`: Fungsi pembantu (formatting mata uang, tanggal, validator).
 
-### Backend Structure (`backend/`)
+### Detail Backend (`backend/`)
 - `config/`: Konfigurasi database dan environment.
-- `controllers/`: Logika bisnis utama untuk setiap fitur.
-- `middleware/`: Fungsi penengah (misal: validasi token JWT, validasi input).
-- `routes/`: Definisi endpoint API (Auth, Events, Tiket).
-- `server.js`: Entry point utama aplikasi backend.
+- `controllers/`: Logika bisnis utama untuk setiap entitas (User, Event, Tiket).
+- `middleware/`: Fungsi penengah (Auth checking, File upload handler, Validation).
+- `routes/`: Definisi endpoint API (Routing).
+- `public/`: File statis yang diakses publik (unggahan gambar).
+- `server.js`: Titik masuk utama aplikasi backend.
+- `database.sql`: File skema database untuk inisialisasi awal.
+
+---
 
 ## 5. Konvensi & Gaya Coding
-- **Gaya Coding**: Mengikuti prinsip **Clean Code** dan **DRY (Don't Repeat Yourself)** dengan memisahkan komponen UI kecil agar bisa digunakan kembali.
+- **Clean Code & DRY**: Menghindari duplikasi kode dengan membuat komponen dan utilitas yang *reusable*.
 - **Naming Convention**:
-    - **File Component**: PascalCase (Contoh: `Button.tsx`).
-    - **Folder & Non-component**: lowercase atau kebab-case.
-    - **Variable & Function**: camelCase.
-- **Pemisahan Logic**: Logika pemanggilan API dipisahkan dari komponen visual (`pages/` vs `api/`).
-- **Error Handling**: Menggunakan block `try-catch` di frontend (saat request API) dan backend (saat operasi database) dengan pengiriman pesan error yang user-friendly.
+  - File React: `PascalCase` (Contoh: `EventCard.tsx`).
+  - Variabel & Fungsi: `camelCase`.
+  - Konstanta/Env: `UPPER_SNAKE_CASE`.
+- **Struktur Penulisan**:
+  - Pemisahan antara *UI Component* (presentasi) dan *Logic* (Hooks/API).
+  - Penggunaan CSS Tailwind langsung di dalam JSX untuk kecepatan pengembangan.
+- **Error Handling**:
+  - Frontend: Menggunakan blok `try-catch` pada panggilan API dengan notifikasi user yang ramah (Toast/Alert).
+  - Backend: Middleware error handler global untuk menangkap error 500 dan format response error yang seragam `{ success: false, message: ... }`.
+
+---
 
 ## 6. Cara Menjalankan Project
-### Prasyarat
-- Node.js terinstall.
-- MySQL server berjalan.
 
-### Langkah-langkah
-1. **Setup Database**: Import file `database.sql` ke dalam database MySQL Anda.
-2. **Backend**:
-   ```bash
-   cd backend
-   npm install
-   # Sesuaikan file .env dengan kredensial database Anda
-   npm run dev
-   ```
-3. **Frontend**:
-   ```bash
-   cd frontend
-   npm install
-   npm run dev
-   ```
+### Prasyarat
+- Node.js (v16+)
+- MySQL Server
+- NPM atau Yarn
+
+### Langkah Instalasi
+1. **Clone Repository**.
+2. **Setup Backend**:
+   - Masuk ke folder `backend`.
+   - Jalankan `npm install`.
+   - Buat file `.env` berdasarkan `.env.example`.
+   - Import `database.sql` ke MySQL Anda.
+3. **Setup Frontend**:
+   - Masuk ke folder `frontend`.
+   - Jalankan `npm install`.
+   - Buat file `.env` (isi `VITE_API_URL`).
+
+### Menjalankan Aplikasi (Mode Dev)
+- **Backend**: `npm run dev` (berjalan di port 3000 secara default).
+- **Frontend**: `npm run dev` (berjalan di port Vite, biasanya 5173).
+
+---
 
 ## 7. Insight Teknis Tambahan
-- **Keputusan Teknis**: Penggunaan TypeScript di frontend dipilih untuk meminimalisir error saat runtime dan memperjelas struktur data (terutama untuk data pertunjukan yang kompleks).
-- **Potensi Improvement**:
-    - Implementasi **Redis** untuk caching data event agar load time lebih cepat.
-    - Penggunaan **Cloudinary** untuk manajemen asset gambar yang lebih efisien.
-- **Known Limitation**: Saat ini sistem masih bergantung pada `localStorage` untuk penyimpanan token, yang memiliki sedikit risiko keamanan XSS dibandingkan `httpOnly cookies`.
+- **Keputusan Teknis**: Penggunaan **React** dan **Vite** dipilih karena performa rendering yang cepat dan ekosistem library yang luas. **Tailwind CSS** digunakan untuk mempercepat proses desain tanpa menulis CSS manual yang panjang.
+- **Simulasi Pembayaran**: Karena project ini bersifat edukasi/PABP, sistem pembayaran dilakukan dengan cara unggah bukti transfer manual yang kemudian divalidasi oleh admin.
+- **Optimasi**: Penggunaan PDF generation di sisi client (frontend) mengurangi beban server dalam memproses file dokumen.
+- **Keterbatasan**: Saat ini belum ada integrasi *payment gateway* otomatis (seperti Midtrans/Stripe), semua transaksi masih bersifat manual.
+
+---
 
 ## 8. Ringkasan untuk AI
-- **Project ini adalah**: Platform e-ticketing seni budaya Indonesia bernama SeniLokal.
-- **Stack utama**: React (Vite, TS, Tailwind) + Node.js (Express, MySQL).
-- **Struktur utama**: Folder `frontend` untuk client, `backend` untuk server API.
-- **Hal penting untuk AI**: 
-    - Autentikasi menggunakan JWT.
-    - Perhatikan pemisahan antara `pages` dan `components` di frontend.
-    - Database menggunakan MySQL murni (bukan ORM seperti Prisma/Sequelize), jadi query ditulis secara manual atau via driver mysql2.
+Jika Anda membantu mengembangkan proyek ini, perhatikan poin berikut:
+- **Tujuan**: Platform reservasi tiket seni budaya (SeniLokal).
+- **Stack**: React (TS) + Express + MySQL + Tailwind.
+- **Pola**: Frontend memisahkan antara `pages` dan `components`. Backend menggunakan pola `Routes -> Controllers`.
+- **Autentikasi**: JWT Token disimpan di client, dicek via Middleware di server.
+- **Hal Penting**: Pastikan setiap perubahan pada skema database dicatat, dan selalu gunakan TypeScript interfaces yang ada di `frontend/src/types` saat menambah fitur baru.
+
+---
+*Catatan: Project ini merupakan bagian dari tugas PABP (Pendidikan Agama dan Budi Pekerti) dengan tema kebudayaan.*
